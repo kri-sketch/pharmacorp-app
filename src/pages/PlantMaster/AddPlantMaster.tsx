@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { usePlantContext, Plant } from "./PlantContext";
 import styles from "./AddPlantMaster.module.css";
 
-
 const AddPlantMaster: React.FC = () => {
   const { addPlant } = usePlantContext();
   const navigate = useNavigate();
@@ -14,16 +13,15 @@ const AddPlantMaster: React.FC = () => {
     status: "ACTIVE",
   });
 
-const handleChange = (
-  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-) => {
-  const { name, value } = e.target;
-  setForm({
-    ...form,
-    [name]: name === "status" ? (value as "ACTIVE" | "INACTIVE") : value,
-  });
-};
-
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setForm({
+      ...form,
+      [name]: name === "status" ? (value as "ACTIVE" | "INACTIVE") : value,
+    });
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,11 +64,21 @@ const handleChange = (
           onChange={handleChange}
         >
           <option value="ACTIVE">ACTIVE</option>
-          <option value="INACTIVE" className={styles.statusInactive}>INACTIVE</option>
+          <option value="INACTIVE" className={styles.statusInactive}>
+            INACTIVE
+          </option>
         </select>
         <div className={styles.buttonRow}>
-          <button type="submit" className={styles.saveBtn}>Save</button>
-          <button type="button" className={styles.cancelBtn} onClick={() => navigate("/plants")}>Cancel</button>
+          <button type="submit" className={styles.saveBtn}>
+            Save
+          </button>
+          <button
+            type="button"
+            className={styles.cancelBtn}
+            onClick={() => navigate("/superadmin")}
+          >
+            Cancel
+          </button>
         </div>
       </form>
     </div>

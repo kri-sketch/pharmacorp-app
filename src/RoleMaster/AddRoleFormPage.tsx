@@ -13,7 +13,7 @@ export default function AddRoleFormPage() {
     description: "",
     status: "ACTIVE",
   });
-  const [comment, setComment] = useState("");
+  const [comment] = useState("");
 
   const handleFormChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -96,16 +96,6 @@ export default function AddRoleFormPage() {
             <option value="ACTIVE">ACTIVE</option>
             <option value="INACTIVE">INACTIVE</option>
           </select>
-        </div>
-
-        <div className={styles.commentBox}>
-          <label htmlFor="comment">Comment</label>
-          <textarea
-            id="comment"
-            placeholder="Enter comment here..."
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
         </div>
 
         <div className={styles.formActions}>
