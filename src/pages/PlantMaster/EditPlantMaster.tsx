@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { PlantContext, Plant } from "./PlantContext";
-
+import styles from "./AddPlantMaster.module.css";
 const EditPlantMaster: React.FC = () => {
   const { id } = useParams(); // index from route
   const plantCtx = useContext(PlantContext);
@@ -35,18 +35,58 @@ const handleChange = (
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Edit Plant</h2>
-      <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 400 }}>
-        <input name="name" placeholder="Plant Name" value={form.name} onChange={handleChange} required />
-        <input name="description" placeholder="Description" value={form.description} onChange={handleChange} required />
-        <input name="location" placeholder="Location" value={form.location} onChange={handleChange} required />
+    <div  style={{
+        maxWidth: 440,
+        margin: "30px auto",
+        padding: 24,
+        background: "#fff",
+        borderRadius: 10,
+        boxShadow: "0 0 16px rgba(40,70,120,.09)",
+      }}>
+      <h2 style={{ marginBottom: 20, color: "#2563eb" }}>Edit Plant</h2>
+      <form   onSubmit={handleSubmit} className={styles.form}>
+        <div >
+          <label>Plant Name</label>
+          <input
+            name="name"
+            value={form.name}
+           onChange={handleChange}
+            
+            required
+          />
+        </div>
+         <div >
+          <label>Description</label>
+          <input
+            name="description"
+            value={form.description}
+           onChange={handleChange}
+            
+            required
+          />
+        </div>
+       
+         <div >
+          <label>Location</label>
+          <input
+            name="location"
+            value={form.location}
+           onChange={handleChange}
+            
+            required
+          />
+        </div>
+        <div>
+          <label>Status</label>
         <select name="status" value={form.status} onChange={handleChange}>
           <option value="ACTIVE">ACTIVE</option>
           <option value="INACTIVE">INACTIVE</option>
         </select>
-        <button type="submit">Update</button>
-        <button type="button" onClick={() => navigate("/plants")}>Cancel</button>
+        </div>
+        <div className={styles.buttonRow}>
+        <button type="submit" className={styles.saveBtn}>Update</button>
+        <button type="button"  className={styles.cancelBtn} onClick={() => navigate("/plants")}>Cancel</button>
+        </div>
       </form>
     </div>
   );
