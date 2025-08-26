@@ -32,33 +32,53 @@ const handleChange = (
   };
 
   return (
-    <div className={styles.container}>
+    <div  style={{
+        maxWidth: 440,
+        margin: "30px auto",
+        padding: 24,
+        background: "#fff",
+        borderRadius: 10,
+        boxShadow: "0 0 16px rgba(40,70,120,.09)",
+      }}>
       <h2 style={{ marginBottom: 24 }}>Add Plant</h2>
       <form className={styles.form} onSubmit={handleSubmit}>
-        <input
-          className={styles.input}
-          name="name"
-          placeholder="Plant Name"
-          value={form.name}
-          onChange={handleChange}
-          required
-        />
-        <input
-          className={styles.input}
-          name="description"
-          placeholder="Description"
-          value={form.description}
-          onChange={handleChange}
-          required
-        />
-        <input
-          className={styles.input}
-          name="location"
-          placeholder="Location"
-          value={form.location}
-          onChange={handleChange}
-          required
-        />
+       
+
+        <div className={styles.formGroup}>
+                  <label>Plant Name</label>
+                  <input
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+        
+
+
+        <div className={styles.formGroup}>
+                  <label>Description</label>
+                  <input
+                    name="description"
+                    value={form.description}
+                    onChange={handleChange}
+                    required
+                  />
+                </div> 
+
+
+        
+
+        <div className={styles.formGroup}>
+                  <label>Location</label>
+                  <input
+                    name="location"
+                    value={form.location}
+                    onChange={handleChange}
+                    required
+                  />
+                </div> 
+
         <select
           className={styles.select}
           name="status"
@@ -66,7 +86,7 @@ const handleChange = (
           onChange={handleChange}
         >
           <option value="ACTIVE">ACTIVE</option>
-          <option value="INACTIVE" className={styles.statusInactive}>INACTIVE</option>
+          <option value="INACTIVE" >INACTIVE</option>
         </select>
         <div className={styles.buttonRow}>
           <button type="submit" className={styles.saveBtn}>Save</button>
