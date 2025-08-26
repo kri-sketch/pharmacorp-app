@@ -218,11 +218,6 @@ export default function RoleMasterTable() {
   };
 
   //removed due to henadle cannot be edited in r0le master
-  // const handleEditRole = () => {
-  //   if (selectedRow === null) return;
-  //   navigate(`/edit-role/${selectedRow}`);
-  // };
-
   const handleDeleteRole = () => {
     setShowDeleteModal(true);
   };
@@ -307,8 +302,15 @@ export default function RoleMasterTable() {
           </button>
           <button
             className={`${styles.btn} ${styles.editBtn}`}
-            disabled
-            title="Role name cannot be edited after creation"
+            disabled={selectedRow === null}
+            onClick={() => {
+              if (selectedRow !== null) navigate(`/edit-role/${selectedRow}`);
+            }}
+            title={
+              selectedRow === null
+                ? "Select a role to edit"
+                : "Edit role (role name cannot be changed)"
+            }
           >
             <FaEdit size={14} /> Edit
           </button>

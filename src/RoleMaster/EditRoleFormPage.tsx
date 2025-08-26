@@ -15,7 +15,7 @@ export default function EditRoleFormPage() {
     description: "",
     status: "ACTIVE",
   });
-  const [comment, setComment] = useState("");
+
   const [activityLogs, setActivityLogs] = useState<RoleActivityLog[]>([]);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ export default function EditRoleFormPage() {
             newValue: `Role: ${form.name}`,
             approver: username,
             dateTime: new Date().toISOString(),
-            reason: comment,
+            // reason field removed (no comment)
           },
         ],
       };
@@ -93,7 +93,13 @@ export default function EditRoleFormPage() {
           <input
             name="name"
             value={form.name}
-            onChange={handleFormChange}
+            readOnly
+            style={{
+              backgroundColor: "#f3f3f3",
+              color: "#888",
+              cursor: "not-allowed",
+            }}
+            title="Role name cannot be changed after creation."
             required
           />
         </div>
@@ -112,16 +118,6 @@ export default function EditRoleFormPage() {
             <option value="ACTIVE">ACTIVE</option>
             <option value="INACTIVE">INACTIVE</option>
           </select>
-        </div>
-
-        <div className={styles.commentBox}>
-          <label htmlFor="comment">Comment</label>
-          <textarea
-            id="comment"
-            placeholder="Enter comment here..."
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
         </div>
 
         <div className={styles.formActions}>
