@@ -305,8 +305,9 @@ const UserMasterTable = () => {
                     <th>Employee Code</th>
                     <th>Department</th>
                     <th>Assigned Plants</th>
-                    <th>Status</th>
+                    
                     <th>Central Master</th>
+                    <th>Status</th>
                     <th>Activity Logs</th>
                   </tr>
                 </thead>
@@ -335,17 +336,7 @@ const UserMasterTable = () => {
                           </span>
                         ))}
                       </td>
-                      <td>
-                        <span
-                          className={
-                            user.status === "Active"
-                              ? styles.activeBadge
-                              : styles.inactiveBadge
-                          }
-                        >
-                          {user.status}
-                        </span>
-                      </td>
+                     
                       <td>
                         {Array.isArray(user.centralMaster) &&
                         user.centralMaster.length > 0 ? (
@@ -359,6 +350,17 @@ const UserMasterTable = () => {
                         ) : (
                           <span className={styles.inactive}>-</span>
                         )}
+                      </td>
+                       <td>
+                        <span
+                          className={
+                            user.status === "Active"
+                              ? styles.activeBadge
+                              : styles.inactiveBadge
+                          }
+                        >
+                          {user.status}
+                        </span>
                       </td>
                       <td>
                         <button

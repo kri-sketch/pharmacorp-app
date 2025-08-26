@@ -172,7 +172,7 @@ const initialUsers: UserWithLogs[] = [
     ],
   },
   {
-    fullName: "Pankaj Patel",
+    fullName: "Pankaj Singh",
     email: "pankaj.patel@unichem.com",
     empCode: "EMP004",
     department: "QA",
