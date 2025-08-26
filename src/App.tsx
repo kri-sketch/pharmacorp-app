@@ -7,33 +7,37 @@ import { AuthProvider } from "./context/AuthContext";
 import { RolesProvider } from "./RoleMaster/RolesContext";
 import { UserProvider } from "./context/UserContext";
 import { ApplicationsProvider } from "./context/ApplicationsContext";
-import { PlantProvider } from "pages/PlantMaster/PlantContext";
+import { ApproverProvider } from "./context/ApproverContext";
+
 import AppRoutes from "./routes/AppRoutes";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
+import { PlantProvider } from "pages/PlantMaster/PlantContext";
 
 const App: React.FC = () => {
   return (
-    <AuthProvider>
-      <FormProvider>
+    <ApproverProvider>
+      <AuthProvider>
         <PlantProvider>
-        <RolesProvider>
-          <UserProvider>
-            <ApplicationsProvider>
-              <BrowserRouter>
-                {/* Main App Routes */}
-                <AppRoutes />
+        <FormProvider>
+          <RolesProvider>
+            <UserProvider>
+              <ApplicationsProvider>
+                <BrowserRouter>
+                  {/* Main App Routes */}
+                  <AppRoutes />
 
-                {/* Vercel Integrations */}
-                <SpeedInsights />
-                <Analytics />
-              </BrowserRouter>
-            </ApplicationsProvider>
-          </UserProvider>
-        </RolesProvider>
+                  {/* Vercel Integrations */}
+                  <SpeedInsights />
+                  <Analytics />
+                </BrowserRouter>
+              </ApplicationsProvider>
+            </UserProvider>
+          </RolesProvider>
+        </FormProvider>
         </PlantProvider>
-      </FormProvider>
-    </AuthProvider>
+      </AuthProvider>
+    </ApproverProvider>
   );
 };
 

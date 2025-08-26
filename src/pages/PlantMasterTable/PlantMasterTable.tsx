@@ -10,32 +10,6 @@ import autoTable from "jspdf-autotable";
 import { FaRegClock } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 
-const plantData = [
-  {
-    name: "Mumbai Plant",
-    description: "Manufacturing facility in Mumbai",
-    location: "Maharashtra, India",
-    status: "ACTIVE",
-  },
-  {
-    name: "Goa Plant",
-    description: "Oral solid dosage facility in Goa",
-    location: "Goa, India",
-    status: "ACTIVE",
-  },
-  {
-    name: "Chennai Plant",
-    description: "API manufacturing facility",
-    location: "Tamil Nadu, India",
-    status: "ACTIVE",
-  },
-  {
-    name: "Pune Plant",
-    description: "R&D and formulation center",
-    location: "Maharashtra, India",
-    status: "ACTIVE",
-  },
-];
 
 // Dummy activity logs for demonstration
 const dummyActivityLogs = [
