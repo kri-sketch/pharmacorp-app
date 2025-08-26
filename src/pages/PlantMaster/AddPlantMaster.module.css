@@ -1,0 +1,80 @@
+.container {
+  background: linear-gradient(120deg, #f6faff 0%, #eef4ff 100%);
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(37,99,235,0.14);
+  padding: 32px 20px;
+  max-width: 500px;
+  margin: 32px auto;
+  font-family: "Inter", "Segoe UI", Arial, sans-serif;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.input, .select {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #dbeafe;
+  font-size: 1rem;
+  background: #f6faff;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.saveBtn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.saveBtn:hover {
+  background: #1e40af;
+}
+
+.cancelBtn {
+  background: #f3f4f6;
+  color: #374151;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 24px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cancelBtn:hover {
+  background: #e5e7eb;
+}
+
+
+
+.inactive {
+  background-color: #d1f1d4;
+  color: #e11d48;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.statusInactive {
+  background-color: #ffeaea;
+  color: #e11d48;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}

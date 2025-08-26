@@ -22,7 +22,9 @@ import AddVendorFormPage from "../pages/VendorMasterTable/AddVendorFormPage";
 import EditVendorFormPage from "../pages/VendorMasterTable/EditVendorFormPage";
 import { VendorProvider } from "../context/VendorContext";
 import SuperAdmin from "../pages/SuperAdmin/SuperAdmin";
-
+import PlantMasterTable from "../pages/PlantMasterTable/PlantMasterTable";
+import AddPlantMaster from "../pages/PlantMaster/AddPlantMaster";
+import EditPlantMaster from "../pages/PlantMaster/EditPlantMaster";
 const AppRoutes: React.FC = () => (
   <Routes>
     {/* User Flow */}
@@ -44,6 +46,12 @@ const AppRoutes: React.FC = () => (
 
     {/* SuperAdmin Flow */}
     <Route path="/superadmin" element={<SuperAdmin />} />
+
+
+<Route path="/plants" element={<PlantMasterTable />} />
+          <Route path="/plants/add" element={<AddPlantMaster />} />
+          <Route path="/plants/edit/:id" element={<EditPlantMaster />} />
+
 
     {/* Role Master */}
     <Route path="/roles" element={<RoleMasterTable />} />

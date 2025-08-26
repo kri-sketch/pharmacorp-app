@@ -94,6 +94,15 @@
   font-weight: 600;
 }
 
+.statusInactive {
+  background-color: #ffeaea;
+  color: #e11d48;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
 
 .main-header {
   display: flex;

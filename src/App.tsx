@@ -7,7 +7,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { RolesProvider } from "./RoleMaster/RolesContext";
 import { UserProvider } from "./context/UserContext";
 import { ApplicationsProvider } from "./context/ApplicationsContext";
-
+import { PlantProvider } from "pages/PlantMaster/PlantContext";
 import AppRoutes from "./routes/AppRoutes";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
@@ -16,6 +16,7 @@ const App: React.FC = () => {
   return (
     <AuthProvider>
       <FormProvider>
+        <PlantProvider>
         <RolesProvider>
           <UserProvider>
             <ApplicationsProvider>
@@ -30,6 +31,7 @@ const App: React.FC = () => {
             </ApplicationsProvider>
           </UserProvider>
         </RolesProvider>
+        </PlantProvider>
       </FormProvider>
     </AuthProvider>
   );

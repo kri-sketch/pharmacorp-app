@@ -1,4 +1,5 @@
 import React from "react";
+import { usePlantContext } from "../PlantMaster/PlantContext";
 import styles from "../ApplicationMasterTable/ApplicationMasterTable.module.css";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import SettingsIcon from "@mui/icons-material/Settings";
@@ -7,6 +8,7 @@ import ConfirmDeleteModal from "../../components/Common/ConfirmDeleteModal";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { FaRegClock } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 const plantData = [
   {
@@ -70,9 +72,9 @@ const dummyActivityLogs = [
 ];
 
 const PlantMasterTable: React.FC = () => {
+  const { plants } = usePlantContext();
   const [selectedRow, setSelectedRow] = React.useState<number | null>(null);
   const [showDeleteModal, setShowDeleteModal] = React.useState(false);
-  const [data, setData] = React.useState(plantData);
   const [showActivityModal, setShowActivityModal] = React.useState(false);
   const [activityLogs] = React.useState(dummyActivityLogs);
   const [approverFilter, setApproverFilter] = React.useState("");
@@ -98,7 +100,7 @@ const PlantMasterTable: React.FC = () => {
     return () => document.removeEventListener("mousedown", handleClick);
   }, [showFilterPopover]);
   // Filtering logic
-  const filteredData = data.filter((plant) => {
+  const filteredData = plants.filter((plant) => {
     if (!filterValue.trim()) return true;
     const value = filterValue.toLowerCase();
     switch (filterColumn) {
@@ -118,12 +120,15 @@ const PlantMasterTable: React.FC = () => {
   const handleDelete = () => setShowDeleteModal(true);
   const confirmDelete = () => {
     if (selectedRow === null) return;
-    const updated = [...data];
-    updated.splice(selectedRow, 1);
-    setData(updated);
+    // If you have a context method to remove a plant, call it here.
+    // Example: removePlant(plants[selectedRow].id);
+    // Otherwise, just close the modal and deselect.
     setSelectedRow(null);
     setShowDeleteModal(false);
   };
+
+
+  const navigate = useNavigate();
 
   // PDF Export Handler for Plant Table
   const handleExportPDF = () => {
@@ -134,11 +139,20 @@ const PlantMasterTable: React.FC = () => {
     const dd = String(today.getDate()).padStart(2, "0");
     const fileName = `PlantMasterTable_${yyyy}-${mm}-${dd}.pdf`;
     const headers = [["Plant Name", "Description", "Location", "Status"]];
-    const rows = data.map((plant) => [
-      plant.name,
-      plant.description,
-      plant.location,
-      plant.status,
+    interface Plant {
+      name: string;
+      description: string;
+      location: string;
+      status: string;
+    }
+
+    const data: Plant[] = filteredData;
+
+    const rows: string[][] = data.map((plant: Plant) => [
+      plant.name ?? "",
+      plant.description ?? "",
+      plant.location ?? "",
+      plant.status ?? "",
     ]);
     doc.setFontSize(18);
     doc.text("Plant Master Table", 14, 18);
@@ -253,7 +267,7 @@ const PlantMasterTable: React.FC = () => {
       </header>
       <div className={styles.headerTopRow}>
         <div className={styles.actionHeaderRow}>
-          <button className={styles.addUserBtn}>+ Add New</button>
+          <button className={styles.addUserBtn} onClick={() => navigate("/plants/add")}>+ Add New</button>
           <button
             className={styles.filterBtn}
             onClick={() => setShowFilterPopover((prev) => !prev)}
@@ -262,7 +276,10 @@ const PlantMasterTable: React.FC = () => {
           >
             🔍 Filter
           </button>
-          <button className={`${styles.btn} ${styles.editBtn}`}>
+          <button className={`${styles.btn} ${styles.editBtn}`}  onClick={() => {
+    if (selectedRow !== null) navigate(`/plants/edit/${selectedRow}`);
+  }}
+  disabled={selectedRow === null}>
             <FaEdit size={14} /> Edit
           </button>
           <button
@@ -389,7 +406,9 @@ const PlantMasterTable: React.FC = () => {
                   <td>{plant.description}</td>
                   <td>{plant.location}</td>
                   <td>
-                    <span className={styles.status}>{plant.status}</span>
+                    <span className={plant.status === "INACTIVE" ? styles.statusInactive : styles.status}>
+                      {plant.status}
+                    </span>
                   </td>
                   <td>
                     <span
