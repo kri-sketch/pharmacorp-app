@@ -1,4 +1,62 @@
-/* Button color classes for inline menu */
+.wrapper {
+  width: 100%;
+  max-width: 100%;
+  padding: 24px;
+}
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.tableUser {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-top: 25px;
+  background: #fff;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #b6c6e3 #f4f7fb; /* Firefox */
+}
+
+/* Chrome, Edge, Safari */
+.tableUser::-webkit-scrollbar {
+  width: 8px;
+  background: #f4f7fb;
+  border-radius: 8px;
+}
+.tableUser::-webkit-scrollbar-thumb {
+  background: #b6c6e3;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.tableUser::-webkit-scrollbar-thumb:hover {
+  background: #7fa1d6;
+}
+
+/* Table container: full width, scrolls if needed */
+.tableUser {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-top: 25px;
+  background: #fff;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #b6c6e3 #f4f7fb; /* Firefox */
+}
 .main-header {
   display: flex;
   justify-content: space-between;
@@ -76,10 +134,11 @@
   margin: 25px;
   overflow: hidden;
 }
-table {
+.table {
   width: 100%;
-  border-collapse: collapse;
+  min-width: 900px;
 }
+
 thead {
   background: #eef5fe;
 }
@@ -540,8 +599,6 @@ tbody td {
 }
 
 .container {
-  margin-top: 25px;
-
   font-family: "Segoe UI", sans-serif;
 }
 
@@ -550,18 +607,6 @@ tbody td {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
-}
-
-.tableUser {
-  width: 100%;
-  overflow-x: auto;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  margin-top: 25px;
-  background: #fff;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
 }
 
 .table {
