@@ -66,17 +66,17 @@ const Login: React.FC = () => {
       localStorage.setItem("username", foundUser.username);
       // Route based on role, but plantAdmin always goes to /superAdmin
       if (foundUser.role === "plantAdmin") {
-        navigate("/superAdmin");
+        navigate("/superadmin");
       } else {
         switch (foundUser.role) {
           case "superAdmin":
-            navigate("/superAdmin");
+            navigate("/superadmin");
             break;
           case "approver":
             navigate("/approver");
             break;
           case "user":
-            navigate("/userForm");
+            navigate("/user-information");
             break;
           default:
             navigate("/");
