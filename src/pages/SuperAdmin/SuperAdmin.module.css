@@ -1,31 +1,32 @@
 /* Responsive layout for SuperAdmin */
 @media (max-width: 1400px) {
   .main-content {
-    width: calc(100% - 210px);
+    width: calc(100% - 14.5rem);
   }
   .sidebar {
-    width: 210px;
+    width: 14.5rem;
   }
 }
 
 @media (max-width: 1100px) {
   .main-content {
-    width: calc(100% - 160px);
+    width: calc(100% - 10.5rem);
     min-width: 0;
-    padding: 0 8px;
+    padding: 0 0.5rem;
   }
   .sidebar {
-    width: 160px;
-    min-width: 120px;
+    width: 10.5rem;
+    min-width: 7.5rem;
   }
   .sidebar-header img {
-    width: 110px;
+    width: 7rem;
+    max-width: 100%;
   }
   .sidebar-group,
   .nav-button {
-    padding-left: 12px;
-    padding-right: 12px;
-    font-size: 12px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    font-size: 0.85rem;
   }
 }
 
@@ -37,8 +38,8 @@
     flex-direction: row;
     width: 100vw;
     min-width: 0;
-    height: 60px;
-    min-height: 60px;
+    height: 3.75rem;
+    min-height: 3.75rem;
     position: static;
     box-shadow: 0 2px 8px rgba(18, 90, 130, 0.07);
     z-index: 10;
@@ -52,13 +53,13 @@
     justify-content: flex-start;
     align-items: center;
     width: 100vw;
-    height: 60px;
+    height: 3.75rem;
   }
   .nav-button {
     flex: 1 1 0;
-    min-width: 60px;
-    padding: 0 6px;
-    font-size: 11px;
+    min-width: 3.75rem;
+    padding: 0 0.4rem;
+    font-size: 0.75rem;
     border-radius: 0;
     margin: 0;
     justify-content: center;
@@ -66,7 +67,7 @@
   .main-content {
     width: 100vw;
     min-width: 0;
-    padding: 0 4px;
+    padding: 0 0.25rem;
   }
 }
 
@@ -74,13 +75,13 @@
   .main-header {
     flex-direction: column;
     height: auto;
-    padding: 8px 6px;
+    padding: 0.5rem 0.4rem;
   }
   .header-title {
-    font-size: 18px;
+    font-size: 1.1rem;
   }
   .main-content {
-    padding: 0 2px;
+    padding: 0 0.13rem;
   }
 }
 * {
@@ -103,7 +104,8 @@ html,
 }
 
 .main-content {
-  width: calc(100% - 250px);
+  width: calc(100% - 15.625rem); /* 250px = 15.625rem */
+  min-width: 0;
 }
 
 .main-header h1 {
@@ -365,7 +367,8 @@ html,
 }
 
 .sidebar {
-  width: 250px;
+  width: 15.625rem; /* 250px */
+  min-width: 12rem;
   min-height: 100vh;
   background: linear-gradient(180deg, #1261a4 0%, #238be6 100%);
   display: flex;
@@ -374,64 +377,70 @@ html,
   box-shadow: 3px 0 16px rgba(18, 90, 130, 0.07);
   position: relative;
   overflow: hidden;
+  overflow: hidden;
+  height: 100vh;
+  overflow-y: scroll;
 }
 
 .sidebar-header {
-  padding: 32px 0 7px 0;
+  padding: 2rem 0 0.45rem 0;
   text-align: center;
   background: none;
-  font-size: 19px;
+  font-size: 1.19rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 .sidebar-header img {
   margin-bottom: 1px;
-  width: 170px;
+  width: 10.6rem;
+  max-width: 100%;
   height: auto;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
 }
 .sidebar-header span {
   display: block;
   color: #e1eeff;
-  font-size: 15px;
+  font-size: 0.94rem;
   margin-top: 1px;
   font-weight: 500;
   letter-spacing: 0.03em;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
 }
 
 /* Navigation group title */
+/* Navigation group title */
 .sidebar-group {
-  padding: 23px 28px 20px 28px;
+  padding: 1.2rem 1.75rem 1.1rem 1.75rem;
   color: #e6efff;
-  font-size: 13px;
+  font-size: 0.85rem;
   font-weight: bold;
   letter-spacing: 1px;
   opacity: 0.66;
-  margin-bottom: 2px;
-  margin-top: 10px;
+  margin-bottom: 0.13rem;
+  margin-top: 0.6rem;
 }
 
+/* Navigation buttons */
 /* Navigation buttons */
 .nav-button {
   display: flex;
   align-items: center;
-  gap: 13px;
+  gap: 0.8rem;
   width: 100%;
-  padding: 10px 28px 10px 28px;
+  padding: 0.6rem 1.75rem 0.6rem 1.75rem;
   background: none;
   border: none;
   outline: none;
   color: #f7fbff;
-  font-size: 15.2px;
+  font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
   position: relative;
-  border-radius: 0 22px 22px 0;
+  border-radius: 0 1.4rem 1.4rem 0;
   transition: background 0.25s, color 0.18s, font-weight 0.15s;
   z-index: 1;
-  margin: 5px;
+  margin: 0.3rem;
 }
 
 .nav-button .MuiSvgIcon-root {
