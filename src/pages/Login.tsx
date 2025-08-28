@@ -40,24 +40,26 @@ const Login: React.FC = () => {
       localStorage.setItem("role", foundUser.role);
       localStorage.setItem("username", foundUser.username);
       localStorage.setItem("token", "true");
-      // Route based on role, but plantAdmin always goes to /superAdmin
-      if (foundUser.role === "plantAdmin") {
-        navigate("/superadmin");
-      } else {
-        switch (foundUser.role) {
-          case "superAdmin":
-            navigate("/superadmin");
-            break;
-          case "approver":
-            navigate("/approver");
-            break;
-          case "user":
-            navigate("/user-information");
-            break;
-          default:
-            navigate("/");
+      // Ensure localStorage is set before navigating
+      setTimeout(() => {
+        if (foundUser.role === "plantAdmin") {
+          navigate("/superadmin");
+        } else {
+          switch (foundUser.role) {
+            case "superAdmin":
+              navigate("/superadmin");
+              break;
+            case "approver":
+              navigate("/approver");
+              break;
+            case "user":
+              navigate("/user-information");
+              break;
+            default:
+              navigate("/");
+          }
         }
-      }
+      }, 0);
     } else {
       setError("Invalid credentials");
     }
