@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import UserInformation from "../pages/UserInformation/UserInformation";
 import AccessDetails from "../pages/AccessDetails/AccessDetails";
 import ReviewSubmit from "../pages/ReviewSubmit/ReviewSubmit";
@@ -25,90 +25,284 @@ import SuperAdmin from "../pages/SuperAdmin/SuperAdmin";
 import PlantMasterTable from "../pages/PlantMasterTable/PlantMasterTable";
 import AddPlantMaster from "../pages/PlantMaster/AddPlantMaster";
 import EditPlantMaster from "../pages/PlantMaster/EditPlantMaster";
-const AppRoutes: React.FC = () => (
-  <Routes>
-    {/* User Flow */}
-    <Route path="/users" element={<UserMasterTable />} />
-    <Route path="/add-user" element={<AddUserFormPage />} />
-    <Route path="/edit-user/:idx" element={<EditUserFormPage />} />
-    <Route path="/user-information" element={<UserInformation />} />
-    <Route path="/access-details" element={<AccessDetails />} />
-    {/* Approver step views: Approver 1, 2, 3 */}
-    <Route path="/approver-step/:step/:id" element={<AccessRequestDetails />} />
-    <Route path="/review-submit" element={<ReviewSubmit />} />
-    <Route path="/generate-credentials" element={<GenerateCredentials />} />
-    <Route path="/track-request" element={<TrackRequest />} />
+import ProtectedRoute from "../components/Common/ProtectedRoute";
 
-    {/* Approver Flow */}
-    <Route path="/" element={<Login />} />
-    <Route path="/approver" element={<ApproverDashboard />} />
-    <Route path="/access-request/:id" element={<AccessRequestDetails />} />
+// List of allowed routes for matching
+const allowedRoutes = [
+  "/", // login
+  "/users",
+  "/add-user",
+  "/edit-user/:idx",
+  "/user-information",
+  "/access-details",
+  "/approver-step/:step/:id",
+  "/review-submit",
+  "/generate-credentials",
+  "/track-request",
+  "/approver",
+  "/access-request/:id",
+  "/superadmin",
+  "/plants",
+  "/plants/add",
+  "/plants/edit/:id",
+  "/roles",
+  "/add-role",
+  "/edit-role/:idx",
+  "/application-master",
+  "/add-application",
+  "/edit-application/:idx",
+  "/vendors",
+  "/add-vendor",
+  "/edit-vendor/:idx",
+];
 
-    {/* SuperAdmin Flow */}
-    <Route path="/superadmin" element={<SuperAdmin />} />
-
-
-<Route path="/plants" element={<PlantMasterTable />} />
-          <Route path="/plants/add" element={<AddPlantMaster />} />
-          <Route path="/plants/edit/:id" element={<EditPlantMaster />} />
-
-
-    {/* Role Master */}
-    <Route path="/roles" element={<RoleMasterTable />} />
-    <Route path="/add-role" element={<AddRoleFormPage />} />
-    <Route path="/edit-role/:idx" element={<EditRoleFormPage />} />
-
-    {/* Application Master */}
-    <Route path="/application-master" element={<ApplicationMasterTable />} />
-    <Route path="/add-application" element={<AddApplicationFormPage />} />
-    <Route
-      path="/edit-application/:idx"
-      element={<EditApplicationFormPage />}
-    />
-
-    {/* Vendor Master */}
-    <Route
-      path="/vendors"
-      element={
-        <VendorProvider>
-          <VendorMasterTable />
-        </VendorProvider>
-      }
-    />
-    <Route
-      path="/add-vendor"
-      element={
-        <VendorProvider>
-          <AddVendorFormPage />
-        </VendorProvider>
-      }
-    />
-    <Route
-      path="/edit-vendor/:idx"
-      element={
-        <VendorProvider>
-          <EditVendorFormPage />
-        </VendorProvider>
-      }
-    />
-
-    {/* Catch-all route for 404 */}
-    <Route
-      path="*"
-      element={
-        <div
-          style={{
-            padding: 40,
-            textAlign: "center",
-            color: "#e74c3c",
-            fontSize: 24,
-          }}
-        >
-          404 - Page Not Found
-        </div>
-      }
-    />
-  </Routes>
+const NotFound = () => (
+  <div
+    style={{
+      padding: 40,
+      textAlign: "center",
+      color: "#e74c3c",
+      fontSize: 24,
+    }}
+  >
+    404 - Page Not Found
+  </div>
 );
+
+function AppRoutes() {
+  const location = useLocation();
+  // Hide all routes from browser bar: if not allowed, show 404
+  const isAllowed = allowedRoutes.some((route) => {
+    // Handle dynamic params
+    if (route.includes(":")) {
+      const base = route.split(":")[0];
+      return location.pathname.startsWith(base);
+    }
+    return location.pathname === route;
+  });
+
+  if (!isAllowed) {
+    return <NotFound />;
+  }
+
+  return (
+    <Routes>
+      {/* User Flow */}
+      <Route
+        path="/users"
+        element={
+          <ProtectedRoute>
+            <UserMasterTable />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/add-user"
+        element={
+          <ProtectedRoute>
+            <AddUserFormPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/edit-user/:idx"
+        element={
+          <ProtectedRoute>
+            <EditUserFormPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/user-information"
+        element={
+          <ProtectedRoute>
+            <UserInformation />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/access-details"
+        element={
+          <ProtectedRoute>
+            <AccessDetails />
+          </ProtectedRoute>
+        }
+      />
+      {/* Approver step views: Approver 1, 2, 3 */}
+      <Route
+        path="/approver-step/:step/:id"
+        element={
+          <ProtectedRoute>
+            <AccessRequestDetails />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/review-submit"
+        element={
+          <ProtectedRoute>
+            <ReviewSubmit />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/generate-credentials"
+        element={
+          <ProtectedRoute>
+            <GenerateCredentials />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/track-request"
+        element={
+          <ProtectedRoute>
+            <TrackRequest />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Approver Flow */}
+      <Route path="/" element={<Login />} />
+      <Route
+        path="/approver"
+        element={
+          <ProtectedRoute>
+            <ApproverDashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/access-request/:id"
+        element={
+          <ProtectedRoute>
+            <AccessRequestDetails />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* SuperAdmin Flow */}
+      <Route
+        path="/superadmin"
+        element={
+          <ProtectedRoute>
+            <SuperAdmin />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/plants"
+        element={
+          <ProtectedRoute>
+            <PlantMasterTable />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/plants/add"
+        element={
+          <ProtectedRoute>
+            <AddPlantMaster />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/plants/edit/:id"
+        element={
+          <ProtectedRoute>
+            <EditPlantMaster />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Role Master */}
+      <Route
+        path="/roles"
+        element={
+          <ProtectedRoute>
+            <RoleMasterTable />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/add-role"
+        element={
+          <ProtectedRoute>
+            <AddRoleFormPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/edit-role/:idx"
+        element={
+          <ProtectedRoute>
+            <EditRoleFormPage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Application Master */}
+      <Route
+        path="/application-master"
+        element={
+          <ProtectedRoute>
+            <ApplicationMasterTable />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/add-application"
+        element={
+          <ProtectedRoute>
+            <AddApplicationFormPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/edit-application/:idx"
+        element={
+          <ProtectedRoute>
+            <EditApplicationFormPage />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Vendor Master */}
+      <Route
+        path="/vendors"
+        element={
+          <ProtectedRoute>
+            <VendorProvider>
+              <VendorMasterTable />
+            </VendorProvider>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/add-vendor"
+        element={
+          <ProtectedRoute>
+            <VendorProvider>
+              <AddVendorFormPage />
+            </VendorProvider>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/edit-vendor/:idx"
+        element={
+          <ProtectedRoute>
+            <VendorProvider>
+              <EditVendorFormPage />
+            </VendorProvider>
+          </ProtectedRoute>
+        }
+      />
+      {/* Catch-all route for 404 */}
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
 
 export default AppRoutes;
