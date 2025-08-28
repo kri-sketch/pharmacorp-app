@@ -287,15 +287,7 @@ const UserMasterTable = () => {
               )}
             </div>
             {/* Table */}
-            <div
-              style={{
-                height: "100%",
-                boxShadow: "0 0 4px rgba(0, 0, 0, 0.05)",
-                border: "1px solid #e2e8f0",
-                borderRadius: 8,
-                marginTop: 25,
-              }}
-            >
+            <div className={styles.tableUser}>
               <table className={styles.userTable}>
                 <thead>
                   <tr>
@@ -305,7 +297,7 @@ const UserMasterTable = () => {
                     <th>Employee Code</th>
                     <th>Department</th>
                     <th>Assigned Plants</th>
-                    
+
                     <th>Central Master</th>
                     <th>Status</th>
                     <th>Activity Logs</th>
@@ -336,7 +328,7 @@ const UserMasterTable = () => {
                           </span>
                         ))}
                       </td>
-                     
+
                       <td>
                         {Array.isArray(user.centralMaster) &&
                         user.centralMaster.length > 0 ? (
@@ -351,7 +343,7 @@ const UserMasterTable = () => {
                           <span className={styles.inactive}>-</span>
                         )}
                       </td>
-                       <td>
+                      <td>
                         <span
                           className={
                             user.status === "Active"

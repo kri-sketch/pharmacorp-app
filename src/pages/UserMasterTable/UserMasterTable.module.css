@@ -92,13 +92,11 @@
   border-color: #084a9e;
 }
 
-
-
 .filterPopover {
   position: absolute;
-  top :148px;
+  top: 148px;
   right: 344px;
- height: 230px;
+  height: 230px;
   z-index: 1000;
   background: #fff;
   border-radius: 12px;
@@ -191,7 +189,7 @@
 }
 .container {
   padding: 24px;
- 
+
   font-family: "Segoe UI", sans-serif;
 }
 
@@ -227,7 +225,6 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
- 
 }
 
 .controls input {
@@ -235,7 +232,6 @@
   padding: 8px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  
 }
 
 .controlButtons button {
@@ -248,20 +244,18 @@
 }
 
 .userTable {
-  
-width: 100%;
+  width: 100%;
   border-collapse: collapse;
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
   border: 1px solid #e2e8f0;
+  height: 100%;
 }
 
-
-
 .userTable th {
-padding: 14px;
+  padding: 14px;
   text-align: left;
   font-weight: bold;
   font-size: 14px;
@@ -273,7 +267,6 @@ padding: 14px;
   border-top: 1px solid #eee;
   font-size: 14px;
 }
-
 
 .radioInput {
   outline: none;
@@ -404,7 +397,6 @@ padding: 14px;
   color: #333;
 }
 
-
 .filterDropdown {
   padding: 6px 10px;
   border-radius: 4px;
@@ -420,7 +412,6 @@ padding: 14px;
   min-width: 180px;
 }
 
-
 .radioInput {
   accent-color: #0b63ce;
   width: 14px;
@@ -430,14 +421,14 @@ padding: 14px;
   outline: 2px solid #77b1f8;
 }
 
-
 .editBtn {
-    background-color: #e2e3e5;
+  background-color: #e2e3e5;
   color: #212529;
 }
-.editBtn:hover, .editBtn:focus {
- background-color: #212529;
-  color:  #e2e3e5;
+.editBtn:hover,
+.editBtn:focus {
+  background-color: #212529;
+  color: #e2e3e5;
 }
 
 /* Delete button: muted/red gray */
@@ -445,13 +436,14 @@ padding: 14px;
   background: #ef5350;
   color: #fff;
 }
-.deleteBtn:hover, .deleteBtn:focus {
+.deleteBtn:hover,
+.deleteBtn:focus {
   background: #bc3c2c;
   color: #fff;
 }
 
 .filterBtn {
-background: linear-gradient(90deg, #1565c0 0%, #42a5f5 100%);
+  background: linear-gradient(90deg, #1565c0 0%, #42a5f5 100%);
   color: #fff;
   border: none;
   padding: 7px 13px;
@@ -462,19 +454,16 @@ background: linear-gradient(90deg, #1565c0 0%, #42a5f5 100%);
   align-items: center;
   gap: 6px;
   cursor: pointer;
- font-size: 14px;
+  font-size: 14px;
 }
 
-
-
 .filterBtn:hover {
-background: #005fbb;
+  background: #005fbb;
   color: #fff;
 }
 
-
 .addUserBtn {
-  background-color:#24bb6a;
+  background-color: #24bb6a;
   color: #fff;
   padding: 7px 14px;
   border-radius: 8px;
@@ -482,11 +471,11 @@ background: #005fbb;
   font-weight: 500;
   cursor: pointer;
   font-size: 14px;
-  box-shadow: 0 1px 2px rgba(90,96,120,.07);
+  box-shadow: 0 1px 2px rgba(90, 96, 120, 0.07);
   transition: background 0.18s;
 }
 .addUserBtn:hover {
-  background-color:#198754;
+  background-color: #198754;
 }
 
 .btn {
@@ -500,10 +489,8 @@ background: #005fbb;
   border: none;
   font-size: 14px;
   white-space: nowrap;
-  box-shadow: 0 1px 2px rgba(90,96,120,.08);
+  box-shadow: 0 1px 2px rgba(90, 96, 120, 0.08);
 }
-
-
 
 .exportPdfBtn span {
   margin-right: 6px;
@@ -525,7 +512,22 @@ background: #005fbb;
   align-items: center;
 }
 
-
-.filterPopoverFooter{
+.filterPopoverFooter {
   text-align: center;
+}
+
+.tableUser {
+  min-height: 60vh;
+  height: 66vh;
+  overflow: auto;
+  overflow-x: hidden;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-top: 25px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.tableUser::-webkit-scrollbar {
+  display: none;
 }
