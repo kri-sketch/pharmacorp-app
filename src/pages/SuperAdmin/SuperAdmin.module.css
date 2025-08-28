@@ -120,6 +120,14 @@ html,
 
 .dashboard1 {
   padding: 25px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  min-height: 60vh;
+  height: 85vh;
+  scrollbar-width: none; /* Firefox */
+}
+.dashboard1::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
 }
 
 .dashboard1 h2 {
