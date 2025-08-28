@@ -1,8 +1,44 @@
+/* Table container and scrollbar styles copied from ApplicationMasterTable.module.css */
+.tableUser {
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-top: 25px;
+  background: #fff;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #b6c6e3 #f4f7fb; /* Firefox */
+}
+
+/* Chrome, Edge, Safari */
+.tableUser::-webkit-scrollbar {
+  width: 8px;
+  background: #f4f7fb;
+  border-radius: 8px;
+}
+.tableUser::-webkit-scrollbar-thumb {
+  background: #b6c6e3;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.tableUser::-webkit-scrollbar-thumb:hover {
+  background: #7fa1d6;
+}
+
+.table th {
+  position: sticky;
+  top: 0;
+  background: #eef5fe;
+  z-index: 2;
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.04);
+}
 .container {
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
- 
+
   margin: 25px;
 }
 
@@ -14,7 +50,7 @@
   background-color: #eef5fe;
   padding: 16px;
   border-radius: 8px 8px 0 0;
-  gap: 12px; 
+  gap: 12px;
 }
 
 .header h3 {
@@ -22,7 +58,6 @@
   font-size: 20px;
   font-weight: 600;
 }
-
 
 .actions {
   display: flex;
@@ -79,7 +114,8 @@
   font-weight: 600;
 }
 
-.table th, .table td {
+.table th,
+.table td {
   padding: 12px 16px;
   text-align: left;
   border-bottom: 1px solid #e5e7eb;
@@ -103,7 +139,6 @@
   font-weight: 600;
 }
 
-
 .main-header {
   display: flex;
   justify-content: space-between;
@@ -112,7 +147,7 @@
   color: #fff;
   padding: 12px 24px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
- 
+
   height: 75px;
 }
 
@@ -120,7 +155,6 @@
   font-size: 28px;
   font-weight: 600;
   color: #fff;
-  
 }
 
 .header-icons {
@@ -139,7 +173,6 @@
   color: #007bff;
 }
 
-
 .headerTopRow {
   background: #eef5fe;
   padding: 16px 24px;
@@ -156,9 +189,8 @@
   align-items: center;
 }
 
-
 .addUserBtn {
-  background-color:#24bb6a;
+  background-color: #24bb6a;
   color: #fff;
   padding: 7px 14px;
   border-radius: 8px;
@@ -166,14 +198,14 @@
   font-weight: 500;
   cursor: pointer;
   font-size: 14px;
-  box-shadow: 0 1px 2px rgba(90,96,120,.07);
+  box-shadow: 0 1px 2px rgba(90, 96, 120, 0.07);
   transition: background 0.18s;
 }
 .addUserBtn:hover {
-  background-color:#198754;
+  background-color: #198754;
 }
 .filterBtn {
-background: linear-gradient(90deg, #1565c0 0%, #42a5f5 100%);
+  background: linear-gradient(90deg, #1565c0 0%, #42a5f5 100%);
   color: #fff;
   border: none;
   padding: 7px 13px;
@@ -184,11 +216,11 @@ background: linear-gradient(90deg, #1565c0 0%, #42a5f5 100%);
   align-items: center;
   gap: 6px;
   cursor: pointer;
- font-size: 14px;
+  font-size: 14px;
 }
 
 .filterBtn:hover {
-background: #005fbb;
+  background: #005fbb;
   color: #fff;
 }
 
@@ -203,16 +235,17 @@ background: #005fbb;
   border: none;
   font-size: 14px;
   white-space: nowrap;
-  box-shadow: 0 1px 2px rgba(90,96,120,.08);
+  box-shadow: 0 1px 2px rgba(90, 96, 120, 0.08);
 }
 
 .editBtn {
-    background-color: #e2e3e5;
+  background-color: #e2e3e5;
   color: #212529;
 }
-.editBtn:hover, .editBtn:focus {
- background-color: #212529;
-  color:  #e2e3e5;
+.editBtn:hover,
+.editBtn:focus {
+  background-color: #212529;
+  color: #e2e3e5;
 }
 
 /* Delete button: muted/red gray */
@@ -220,11 +253,11 @@ background: #005fbb;
   background: #ef5350;
   color: #fff;
 }
-.deleteBtn:hover, .deleteBtn:focus {
+.deleteBtn:hover,
+.deleteBtn:focus {
   background: #bc3c2c;
   color: #fff;
 }
-
 
 .exportPdfBtn {
   background: #fff;
@@ -254,7 +287,6 @@ background: #005fbb;
   border-color: #084a9e;
 }
 
-
 .radioInput {
   outline: none;
   box-shadow: none;
@@ -263,4 +295,3 @@ background: #005fbb;
   outline: none !important;
   box-shadow: none !important;
 }
-
