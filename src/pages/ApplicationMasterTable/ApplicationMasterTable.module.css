@@ -9,7 +9,7 @@
   letter-spacing: 0.5px;
 }
 .statusInactive {
-    background-color: #ffeaea;
+  background-color: #ffeaea;
   color: #e11d48;
   font-size: 12px;
   padding: 4px 10px;
@@ -39,7 +39,6 @@
   animation: fadeIn 0.3s ease-in-out;
 }
 
-
 .addUserFormPageContainer h2 {
   font-size: 24px;
   font-weight: 700;
@@ -66,11 +65,9 @@
   box-shadow: 0 0 0 3px rgba(11, 99, 206, 0.15);
 }
 
-
 .container {
   border-radius: 12px;
   padding: 24px;
-  
 }
 
 .header {
@@ -137,6 +134,7 @@
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
+  height: 100%;
 }
 
 th,
@@ -219,7 +217,7 @@ tbody tr {
 }
 
 .addUserBtn {
-  background-color:#24bb6a;
+  background-color: #24bb6a;
   color: #fff;
   padding: 7px 14px;
   border-radius: 8px;
@@ -227,7 +225,7 @@ tbody tr {
   font-weight: 500;
   cursor: pointer;
   font-size: 14px;
-  box-shadow: 0 1px 2px rgba(90,96,120,.07);
+  box-shadow: 0 1px 2px rgba(90, 96, 120, 0.07);
   transition: background 0.18s;
 }
 
@@ -291,8 +289,6 @@ tbody tr {
   color: #fff;
 }
 
-
-
 .exportPdfBtn {
   background: #fff;
   color: #0b63ce;
@@ -302,7 +298,7 @@ tbody tr {
   font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
-  
+
   box-shadow: 0 2px 8px rgba(11, 99, 206, 0.08);
   transition: background 0.2s, color 0.2s, border 0.2s;
   display: flex;
@@ -398,8 +394,7 @@ tbody tr {
   color: #084a9e;
 }
 
-
-.exportIcon{
+.exportIcon {
   margin-right: 6px;
 }
 
@@ -439,10 +434,9 @@ tbody tr {
   }
 }
 
-
 .container {
   padding: 24px;
- 
+
   font-family: "Segoe UI", sans-serif;
 }
 
@@ -451,16 +445,13 @@ tbody tr {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
- 
 }
-
-
 
 .filterPopover {
   position: absolute;
-  top :148px;
+  top: 148px;
   right: 344px;
- height: 235px;
+  height: 235px;
   z-index: 1000;
   background: #fff;
   border-radius: 12px;
@@ -532,6 +523,22 @@ tbody tr {
 }
 /* Side panel overlay for Add/Edit user */
 
-.filterPopoverFooter{
+.filterPopoverFooter {
   text-align: center;
+}
+
+.tableUser {
+  min-height: 60vh;
+  height: 66vh;
+  overflow: auto;
+  overflow-x: hidden;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-top: 25px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.tableUser::-webkit-scrollbar {
+  display: none;
 }
