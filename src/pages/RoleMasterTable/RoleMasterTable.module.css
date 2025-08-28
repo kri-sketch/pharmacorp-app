@@ -70,7 +70,7 @@
 .roleTableContainer {
   background: white;
   border-radius: 10px;
-  
+
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
   border: 1px solid #e2e8f0;
   margin: 25px;
@@ -134,7 +134,7 @@ tbody td {
   border: none;
   font-size: 14px;
   white-space: nowrap;
-  box-shadow: 0 1px 2px rgba(90, 96, 120,.08);
+  box-shadow: 0 1px 2px rgba(90, 96, 120, 0.08);
 }
 
 .gray {
@@ -212,12 +212,10 @@ tbody td {
   z-index: 1300;
 }
 .advancedFilterPanel {
-
-
-    position: absolute;
+  position: absolute;
   top: 148px;
   right: 344px;
- height: 330px;
+  height: 330px;
   transform: translateX(-50%);
   background: #fff;
   border: 1px solid #e3e3e3;
@@ -232,13 +230,7 @@ tbody td {
   flex-direction: column;
   gap: 18px;
   animation: filterFadeIn 0.23s ease;
-
-  
-  
 }
-
-
-
 
 @keyframes filterFadeIn {
   from {
@@ -250,7 +242,6 @@ tbody td {
     transform: translateY(0) scale(1) translateX(-50%);
   }
 }
-
 
 .filterPopover {
   position: absolute;
@@ -266,7 +257,6 @@ tbody td {
   font-family: "Segoe UI", sans-serif;
 }
 
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -279,7 +269,7 @@ tbody td {
 }
 
 .advancedFilterHeader {
-font-size: 18px;
+  font-size: 18px;
   font-weight: 600;
   color: #1565c0;
   margin-bottom: 14px;
@@ -311,7 +301,7 @@ font-size: 18px;
 
 .advancedFilterRow select:focus,
 .advancedFilterRow input:focus {
-border-color: #2563eb;
+  border-color: #2563eb;
   box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
 }
 
@@ -404,8 +394,6 @@ border-color: #2563eb;
   word-break: break-word;
   font-size: 15px;
 }
-
-
 
 .filterBtn:hover {
   background: #005fbb;
@@ -551,7 +539,6 @@ border-color: #2563eb;
   box-shadow: none !important;
 }
 
-
 .container {
   margin-top: 25px;
 
@@ -565,3 +552,24 @@ border-color: #2563eb;
   margin-bottom: 16px;
 }
 
+.tableUser {
+  width: 100%;
+  overflow-x: auto;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-top: 25px;
+  background: #fff;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.06);
+}

@@ -413,8 +413,8 @@ export default function RoleMasterTable() {
             )}
           </div>
           {/* Table */}
-          <div className={styles.roleTableContainer}>
-            <table>
+          <div className={styles.tableUser}>
+            <table className={styles.table}>
               <thead>
                 <tr>
                   <th></th>
