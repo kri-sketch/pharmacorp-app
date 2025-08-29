@@ -3,6 +3,7 @@ import VendorMasterForm from "./VendorMasterForm";
 import { VendorUser } from "./VendorMasterTable";
 import { useNavigate, useLocation } from "react-router-dom";
 import { VendorContext } from "../../context/VendorContext";
+import { VendorUserWithId } from "../../context/VendorContext";
 import ConfirmLoginModal from "../../components/Common/ConfirmLoginModal";
 import styles from "../ApplicationMasterTable/ApplicationMasterTable.module.css";
 
@@ -14,11 +15,15 @@ const EditVendorFormPage: React.FC = () => {
   const { updateVendor } = useContext(VendorContext);
   const username = localStorage.getItem("username") || "";
   const [showModal, setShowModal] = useState(false);
-  const [pendingVendor, setPendingVendor] = useState<VendorUser | null>(null);
+  const [pendingVendor, setPendingVendor] = useState<VendorUserWithId | null>(
+    null
+  );
+  // Import VendorUserWithId type
+  // import { VendorUserWithId } from "../../context/VendorContext";
 
   // Save handler: show confirm modal before updating
   const handleSave = (vendor: VendorUser) => {
-    setPendingVendor(vendor);
+    setPendingVendor({ ...vendor, id: initialData?.id });
     setShowModal(true);
   };
 

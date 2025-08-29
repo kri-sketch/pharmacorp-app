@@ -14,27 +14,31 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import { Analytics } from "@vercel/analytics/react";
 import { PlantProvider } from "pages/PlantMaster/PlantContext";
 
+import { VendorProvider } from "./context/VendorContext";
+
 const App: React.FC = () => {
   return (
     <ApproverProvider>
       <AuthProvider>
         <PlantProvider>
-        <FormProvider>
-          <RolesProvider>
-            <UserProvider>
-              <ApplicationsProvider>
-                <BrowserRouter>
-                  {/* Main App Routes */}
-                  <AppRoutes />
+          <FormProvider>
+            <RolesProvider>
+              <UserProvider>
+                <ApplicationsProvider>
+                  <VendorProvider>
+                    <BrowserRouter>
+                      {/* Main App Routes */}
+                      <AppRoutes />
 
-                  {/* Vercel Integrations */}
-                  <SpeedInsights />
-                  <Analytics />
-                </BrowserRouter>
-              </ApplicationsProvider>
-            </UserProvider>
-          </RolesProvider>
-        </FormProvider>
+                      {/* Vercel Integrations */}
+                      <SpeedInsights />
+                      <Analytics />
+                    </BrowserRouter>
+                  </VendorProvider>
+                </ApplicationsProvider>
+              </UserProvider>
+            </RolesProvider>
+          </FormProvider>
         </PlantProvider>
       </AuthProvider>
     </ApproverProvider>

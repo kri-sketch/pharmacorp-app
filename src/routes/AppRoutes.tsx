@@ -19,7 +19,6 @@ import EditRoleFormPage from "../RoleMaster/EditRoleFormPage";
 import VendorMasterTable from "../pages/VendorMasterTable/VendorMasterTable";
 import AddVendorFormPage from "../pages/VendorMasterTable/AddVendorFormPage";
 import EditVendorFormPage from "../pages/VendorMasterTable/EditVendorFormPage";
-import { VendorProvider } from "../context/VendorContext";
 import SuperAdmin from "../pages/SuperAdmin/SuperAdmin";
 import PlantMasterTable from "../pages/PlantMasterTable/PlantMasterTable";
 import AddPlantMaster from "../pages/PlantMaster/AddPlantMaster";
@@ -267,14 +266,12 @@ function AppRoutes() {
         }
       />
 
-      {/* Vendor Master */}
+      {/* Vendor Master: just use Route elements, context should be provided in App.tsx */}
       <Route
         path="/vendors"
         element={
           <ProtectedRoute>
-            <VendorProvider>
-              <VendorMasterTable />
-            </VendorProvider>
+            <VendorMasterTable />
           </ProtectedRoute>
         }
       />
@@ -282,9 +279,7 @@ function AppRoutes() {
         path="/add-vendor"
         element={
           <ProtectedRoute>
-            <VendorProvider>
-              <AddVendorFormPage />
-            </VendorProvider>
+            <AddVendorFormPage />
           </ProtectedRoute>
         }
       />
@@ -292,9 +287,7 @@ function AppRoutes() {
         path="/edit-vendor/:idx"
         element={
           <ProtectedRoute>
-            <VendorProvider>
-              <EditVendorFormPage />
-            </VendorProvider>
+            <EditVendorFormPage />
           </ProtectedRoute>
         }
       />

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./VendorMasterTable.module.css";
-import { VendorContext } from "../../context/VendorContext";
+import { VendorContext, VendorUserWithId } from "../../context/VendorContext";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import ConfirmDeleteModal from "../../components/Common/ConfirmDeleteModal";
 import { FaRegClock } from "react-icons/fa6";
@@ -12,6 +12,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 // Unified type for vendor users
 export type VendorUser = {
+  id?: string;
   fullName: string; // Vendor/OEM Firm Name (mandatory)
   comment: string; // Description (mandatory)
   status: string; // Status (mandatory)
@@ -19,15 +20,44 @@ export type VendorUser = {
 };
 
 const VendorMasterTable: React.FC = () => {
+  const navigate = useNavigate();
+  const { vendors, setVendors } = useContext(VendorContext);
+  const [selectedRow, setSelectedRow] = useState<number | null>(null);
+  const [showActivityLogModal, setShowActivityLogModal] = useState(false);
+  const [activeLogValue, setActiveLogValue] = useState<any[]>([]);
+  // Filter state
+  const [showFilterPopover, setShowFilterPopover] = useState(false);
+  const [filterColumn, setFilterColumn] = useState("fullName");
+  const [filterValue, setFilterValue] = useState("");
+  const [tempFilterColumn, setTempFilterColumn] = useState(filterColumn);
+  const [tempFilterValue, setTempFilterValue] = useState(filterValue);
+  const popoverRef = React.useRef<HTMLDivElement | null>(null);
+
+  React.useEffect(() => {
+    if (!showFilterPopover) return;
+    const handleClick = (e: MouseEvent) => {
+      if (
+        popoverRef.current &&
+        !popoverRef.current.contains(e.target as Node)
+      ) {
+        setShowFilterPopover(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [showFilterPopover]);
+
   // PDF Export for Main Table
   const handleDownloadPdf = () => {
     const doc = new jsPDF({ orientation: "landscape" });
     doc.setFontSize(18);
     doc.text("Vendor Master Table", 14, 18);
     const headers = [["Vendor/OEM Firm Name", "Description", "Status"]];
-    const rows = (vendors && vendors.length > 0 ? vendors : sampleVendors).map(
-      (user) => [user.fullName, user.comment, user.status]
-    );
+    const rows = vendors.map((user) => [
+      user.fullName,
+      user.comment,
+      user.status,
+    ]);
     autoTable(doc, {
       head: headers,
       body: rows,
@@ -49,88 +79,6 @@ const VendorMasterTable: React.FC = () => {
     });
     doc.save("vendor-master-table.pdf");
   };
-  const navigate = useNavigate();
-  const { vendors, setVendors } = useContext(VendorContext);
-  // Sample vendor data for testing activity log
-  const sampleVendors: VendorUser[] = [
-    {
-      fullName: "Acme Pharma Pvt Ltd",
-      comment: "Preferred vendor for chemicals",
-      status: "Active",
-      activityLogs: [
-        {
-          action: "Add",
-          oldValue: "-",
-          newValue: "Vendor Added",
-          approver: "Admin1",
-          dateTime: "2025-08-10T09:30:00",
-          reason: "New vendor onboarded",
-        },
-        {
-          action: "Edit",
-          oldValue: "Description: Preferred vendor for chemicals",
-          newValue: "Description: Updated vendor",
-          approver: "Admin2",
-          dateTime: "2025-08-12T11:15:00",
-          reason: "Description updated for new contract",
-        },
-        {
-          action: "Delete",
-          oldValue: "Status: Active",
-          newValue: "Status: Inactive",
-          approver: "SuperAdmin",
-          dateTime: "2025-08-15T14:45:00",
-          reason: "Vendor removed due to compliance issue",
-        },
-      ],
-    },
-    {
-      fullName: "Zenith Labs",
-      comment: "Quality vendor, currently inactive",
-      status: "Inactive",
-      activityLogs: [
-        {
-          action: "Add",
-          oldValue: "-",
-          newValue: "Vendor Added",
-          approver: "Admin1",
-          dateTime: "2025-08-05T10:00:00",
-          reason: "Added for QA supplies",
-        },
-        {
-          action: "Edit",
-          oldValue: "Status: Active",
-          newValue: "Status: Inactive",
-          approver: "Admin2",
-          dateTime: "2025-08-16T16:20:00",
-          reason: "Vendor marked inactive after contract end",
-        },
-      ],
-    },
-  ];
-  const [selectedRow, setSelectedRow] = useState<number | null>(null);
-  const [showActivityLogModal, setShowActivityLogModal] = useState(false);
-  const [activeLogValue, setActiveLogValue] = useState<any[]>([]);
-  // Filter state
-  const [showFilterPopover, setShowFilterPopover] = useState(false);
-  const [filterColumn, setFilterColumn] = useState("fullName");
-  const [filterValue, setFilterValue] = useState("");
-  const [tempFilterColumn, setTempFilterColumn] = useState(filterColumn);
-  const [tempFilterValue, setTempFilterValue] = useState(filterValue);
-  const popoverRef = React.useRef<HTMLDivElement | null>(null);
-  React.useEffect(() => {
-    if (!showFilterPopover) return;
-    const handleClick = (e: MouseEvent) => {
-      if (
-        popoverRef.current &&
-        !popoverRef.current.contains(e.target as Node)
-      ) {
-        setShowFilterPopover(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, [showFilterPopover]);
 
   // PDF Export for Activity Log
   const handleExportActivityLogPdf = () => {
@@ -207,7 +155,7 @@ const VendorMasterTable: React.FC = () => {
 
   const handleEdit = () => {
     if (selectedRow === null) return;
-    const user = vendorList[selectedRow];
+    const user = vendors[selectedRow];
     navigate(`/edit-vendor/${selectedRow}`, {
       state: {
         initialData: user,
@@ -220,7 +168,7 @@ const VendorMasterTable: React.FC = () => {
   const handleDelete = () => setShowDeleteModal(true);
   const confirmDelete = () => {
     if (selectedRow === null) return;
-    const updated = [...vendorList];
+    const updated = [...vendors];
     updated.splice(selectedRow, 1);
     setVendors(updated);
     setSelectedRow(null);
@@ -236,11 +184,8 @@ const VendorMasterTable: React.FC = () => {
     setShowActivityLogModal(true);
   };
 
-  const vendorList: VendorUser[] =
-    vendors && vendors.length > 0 ? vendors : sampleVendors;
-
   // Filtering logic
-  const filteredData = vendorList.filter((user: VendorUser) => {
+  const filteredData = vendors.filter((user: VendorUserWithId) => {
     if (!filterValue.trim()) return true;
     const value = filterValue.toLowerCase();
     switch (filterColumn) {
@@ -362,8 +307,8 @@ const VendorMasterTable: React.FC = () => {
           <ConfirmDeleteModal
             open={showDeleteModal}
             name={
-              selectedRow !== null && vendorList[selectedRow]
-                ? vendorList[selectedRow].fullName
+              selectedRow !== null && vendors[selectedRow]
+                ? vendors[selectedRow].fullName
                 : "vendor"
             }
             onCancel={() => setShowDeleteModal(false)}
@@ -403,8 +348,8 @@ const VendorMasterTable: React.FC = () => {
                 </td>
               </tr>
             ) : (
-              filteredData.map((user: VendorUser, idx: number) => (
-                <tr key={idx}>
+              filteredData.map((user, idx) => (
+                <tr key={user.id || idx}>
                   <td>
                     <input
                       className={styles.radioInput}
