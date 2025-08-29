@@ -18,15 +18,9 @@ const VendorMasterForm: React.FC<Props> = ({
 }) => {
   const [form, setForm] = useState<VendorUser>(
     initialData || {
-      empCode: "",
       fullName: "",
-      email: "",
-      department: "",
-      status: "Active",
-      plants: [],
-      centralPermission: false,
       comment: "",
-      corporateAccessEnabled: false,
+      status: "Active",
       activityLogs: [],
     }
   );
@@ -65,18 +59,7 @@ const VendorMasterForm: React.FC<Props> = ({
 
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className={styles.formGroup}>
-          <label className={styles.label}>Employee Code</label>
-          <input
-            className={styles.input}
-            name="empCode"
-            value={form.empCode}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Full Name</label>
+          <label className={styles.label}>Vendor/OEM Firm Name</label>
           <input
             className={styles.input}
             name="fullName"
@@ -87,23 +70,11 @@ const VendorMasterForm: React.FC<Props> = ({
         </div>
 
         <div className={styles.formGroup}>
-          <label className={styles.label}>Email</label>
-          <input
+          <label className={styles.label}>Description</label>
+          <textarea
             className={styles.input}
-            type="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Department</label>
-          <input
-            className={styles.input}
-            name="department"
-            value={form.department}
+            name="comment"
+            value={form.comment}
             onChange={handleChange}
             required
           />
@@ -123,54 +94,6 @@ const VendorMasterForm: React.FC<Props> = ({
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
           </select>
-        </div>
-
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Plants (comma separated)</label>
-          <input
-            className={styles.input}
-            name="plants"
-            value={form.plants.join(", ")}
-            onChange={(e) =>
-              setForm((prev) => ({
-                ...prev,
-                plants: e.target.value
-                  .split(",")
-                  .map((p) => p.trim())
-                  .filter(Boolean),
-              }))
-            }
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Central Permission</label>
-          <input
-            type="checkbox"
-            name="centralPermission"
-            checked={form.centralPermission}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Corporate Access Enabled</label>
-          <input
-            type="checkbox"
-            name="corporateAccessEnabled"
-            checked={form.corporateAccessEnabled}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Comment</label>
-          <textarea
-            className={styles.input}
-            name="comment"
-            value={form.comment}
-            onChange={handleChange}
-          />
         </div>
 
         <div className={styles.formActions}>

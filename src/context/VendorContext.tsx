@@ -26,7 +26,7 @@ export const VendorProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const updateVendor = (vendor: VendorUser) => {
     setVendors((prev) => {
-      const idx = prev.findIndex((v) => v.empCode === vendor.empCode);
+      const idx = prev.findIndex((v) => v.fullName === vendor.fullName);
       if (idx === -1) return prev;
       const updated = [...prev];
       updated[idx] = vendor;

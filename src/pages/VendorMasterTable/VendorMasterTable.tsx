@@ -12,20 +12,9 @@ import SettingsIcon from "@mui/icons-material/Settings";
 
 // Unified type for vendor users
 export type VendorUser = {
-  id?: number;
-  username?: string;
-  password?: string;
-  role?: string;
-  permissions?: string[];
-  fullName: string;
-  email: string;
-  empCode: string;
-  department: string;
-  status: string;
-  plants: string[];
-  centralPermission: boolean;
-  comment: string;
-  corporateAccessEnabled: boolean;
+  fullName: string; // Vendor/OEM Firm Name (mandatory)
+  comment: string; // Description (mandatory)
+  status: string; // Status (mandatory)
   activityLogs?: any[];
 };
 
@@ -35,31 +24,9 @@ const VendorMasterTable: React.FC = () => {
     const doc = new jsPDF({ orientation: "landscape" });
     doc.setFontSize(18);
     doc.text("Vendor Master Table", 14, 18);
-    const headers = [
-      [
-        "Full Name",
-        "Email",
-        "Employee Code",
-        "Department",
-        "Status",
-        "Plants",
-        "Central Permission",
-        "Corporate Access",
-        "Comment",
-      ],
-    ];
+    const headers = [["Vendor/OEM Firm Name", "Description", "Status"]];
     const rows = (vendors && vendors.length > 0 ? vendors : sampleVendors).map(
-      (user) => [
-        user.fullName,
-        user.email,
-        user.empCode,
-        user.department,
-        user.status,
-        user.plants.join(", "),
-        user.centralPermission ? "Yes" : "No",
-        user.corporateAccessEnabled ? "Enabled" : "Disabled",
-        user.comment,
-      ]
+      (user) => [user.fullName, user.comment, user.status]
     );
     autoTable(doc, {
       head: headers,
@@ -88,14 +55,8 @@ const VendorMasterTable: React.FC = () => {
   const sampleVendors: VendorUser[] = [
     {
       fullName: "Acme Pharma Pvt Ltd",
-      email: "contact@acmepharma.com",
-      empCode: "VEND001",
-      department: "Procurement",
-      status: "Active",
-      plants: ["GOA", "Mumbai"],
-      centralPermission: true,
       comment: "Preferred vendor for chemicals",
-      corporateAccessEnabled: true,
+      status: "Active",
       activityLogs: [
         {
           action: "Add",
@@ -107,11 +68,11 @@ const VendorMasterTable: React.FC = () => {
         },
         {
           action: "Edit",
-          oldValue: "Department: Procurement",
-          newValue: "Department: Supply Chain",
+          oldValue: "Description: Preferred vendor for chemicals",
+          newValue: "Description: Updated vendor",
           approver: "Admin2",
           dateTime: "2025-08-12T11:15:00",
-          reason: "Department updated for new contract",
+          reason: "Description updated for new contract",
         },
         {
           action: "Delete",
@@ -125,14 +86,8 @@ const VendorMasterTable: React.FC = () => {
     },
     {
       fullName: "Zenith Labs",
-      email: "info@zenithlabs.com",
-      empCode: "VEND002",
-      department: "Quality Assurance",
-      status: "Inactive",
-      plants: ["Delhi"],
-      centralPermission: false,
       comment: "Quality vendor, currently inactive",
-      corporateAccessEnabled: false,
+      status: "Inactive",
       activityLogs: [
         {
           action: "Add",
@@ -291,24 +246,10 @@ const VendorMasterTable: React.FC = () => {
     switch (filterColumn) {
       case "fullName":
         return user.fullName?.toLowerCase().includes(value);
-      case "email":
-        return user.email?.toLowerCase().includes(value);
-      case "empCode":
-        return user.empCode?.toLowerCase().includes(value);
-      case "department":
-        return user.department?.toLowerCase().includes(value);
-      case "status":
-        return user.status?.toLowerCase().includes(value);
-      case "plants":
-        return user.plants?.join(", ").toLowerCase().includes(value);
-      case "centralPermission":
-        return (user.centralPermission ? "yes" : "no").includes(value);
-      case "corporateAccessEnabled":
-        return (user.corporateAccessEnabled ? "enabled" : "disabled").includes(
-          value
-        );
       case "comment":
         return user.comment?.toLowerCase().includes(value);
+      case "status":
+        return user.status?.toLowerCase().includes(value);
       default:
         return true;
     }
@@ -358,19 +299,9 @@ const VendorMasterTable: React.FC = () => {
                       value={tempFilterColumn}
                       onChange={(e) => setTempFilterColumn(e.target.value)}
                     >
-                      <option value="fullName">Full Name</option>
-                      <option value="email">Email</option>
-                      <option value="empCode">Employee Code</option>
-                      <option value="department">Department</option>
+                      <option value="fullName">Vendor/OEM Firm Name</option>
+                      <option value="comment">Description</option>
                       <option value="status">Status</option>
-                      <option value="plants">Plants</option>
-                      <option value="centralPermission">
-                        Central Permission
-                      </option>
-                      <option value="corporateAccessEnabled">
-                        Corporate Access
-                      </option>
-                      <option value="comment">Comment</option>
                     </select>
                   </div>
                   <div className={styles.filterFieldRow}>
@@ -458,22 +389,16 @@ const VendorMasterTable: React.FC = () => {
           <thead>
             <tr>
               <th></th>
-              <th>Full Name</th>
-              <th>Email</th>
-              <th>Employee Code</th>
-              <th>Department</th>
+              <th>Vendor/OEM Firm Name</th>
+              <th>Description</th>
               <th>Status</th>
-              <th>Plants</th>
-              <th>Central Permission</th>
-              <th>Corporate Access</th>
-              <th>Comment</th>
-              <th style={{ textAlign: "center" }}>Activity Logs</th>
+              <th style={{ textAlign: "center" }}>Activity Log</th>
             </tr>
           </thead>
           <tbody>
             {filteredData.length === 0 ? (
               <tr>
-                <td colSpan={11} style={{ textAlign: "center", color: "#888" }}>
+                <td colSpan={5} style={{ textAlign: "center", color: "#888" }}>
                   No vendors found.
                 </td>
               </tr>
@@ -490,9 +415,7 @@ const VendorMasterTable: React.FC = () => {
                     />
                   </td>
                   <td>{user.fullName}</td>
-                  <td>{user.email}</td>
-                  <td>{user.empCode}</td>
-                  <td>{user.department}</td>
+                  <td>{user.comment}</td>
                   <td>
                     <span
                       className={`${styles.status} ${
@@ -504,12 +427,6 @@ const VendorMasterTable: React.FC = () => {
                       {user.status}
                     </span>
                   </td>
-                  <td>{user.plants?.join(", ")}</td>
-                  <td>{user.centralPermission ? "Yes" : "No"}</td>
-                  <td>
-                    {user.corporateAccessEnabled ? "Enabled" : "Disabled"}
-                  </td>
-                  <td>{user.comment}</td>
                   <td style={{ textAlign: "center" }}>
                     <button
                       className={styles.actionBtn}

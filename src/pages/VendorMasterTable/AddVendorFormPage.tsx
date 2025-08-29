@@ -14,7 +14,7 @@ const AddVendorFormPage: React.FC = () => {
   // Save handler: add vendor directly (VendorUser)
   const handleSave = (vendor: VendorUser) => {
     addVendor(vendor);
-    navigate("/vendors");
+    navigate("/superadmin");
   };
 
   return (

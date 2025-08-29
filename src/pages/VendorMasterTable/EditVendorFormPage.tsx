@@ -14,7 +14,7 @@ const EditVendorFormPage: React.FC = () => {
   // Save handler updates vendor and navigates back
   const handleSave = (vendor: VendorUser) => {
     updateVendor(vendor);
-    navigate("/vendors");
+    navigate("/superadmin");
   };
 
   return (
