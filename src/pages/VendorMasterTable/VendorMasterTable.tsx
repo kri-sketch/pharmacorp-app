@@ -202,8 +202,7 @@ const VendorMasterTable: React.FC = () => {
   });
 
   return (
-    <div>
-      {/* Top header */}
+    <div className={styles.wrapper}>
       <header className={styles["main-header"]}>
         <h2 className={styles["header-title"]}>Vendor Master</h2>
         <div className={styles["header-icons"]}>
@@ -216,8 +215,6 @@ const VendorMasterTable: React.FC = () => {
           <ProfileIconWithLogout />
         </div>
       </header>
-
-      {/* Table controls */}
       <div className={styles.headerTopRow}>
         <div className={styles.actionHeaderRow}>
           <button className={styles.addUserBtn} onClick={handleAdd}>
@@ -231,65 +228,6 @@ const VendorMasterTable: React.FC = () => {
           >
             🔍 Filter
           </button>
-          {/* Filter Popover */}
-          <div className={styles.controls}>
-            {showFilterPopover && (
-              <div className={styles.filterPopover} ref={popoverRef}>
-                <div className={styles.filterPopoverHeader}>
-                  Advanced Filter
-                </div>
-                <div className={styles.filterPopoverBody}>
-                  <div className={styles.filterFieldRow}>
-                    <label className={styles.filterLabel}>Column</label>
-                    <select
-                      className={styles.filterDropdown}
-                      value={tempFilterColumn}
-                      onChange={(e) => setTempFilterColumn(e.target.value)}
-                    >
-                      <option value="fullName">Vendor/OEM Firm Name</option>
-                      <option value="comment">Description</option>
-                      <option value="status">Status</option>
-                    </select>
-                  </div>
-                  <div className={styles.filterFieldRow}>
-                    <label className={styles.filterLabel}>Value</label>
-                    <input
-                      className={styles.filterInput}
-                      type="text"
-                      placeholder={`Enter ${
-                        tempFilterColumn.charAt(0).toUpperCase() +
-                        tempFilterColumn.slice(1)
-                      }`}
-                      value={tempFilterValue}
-                      onChange={(e) => setTempFilterValue(e.target.value)}
-                    />
-                  </div>
-                </div>
-                <div className={styles.filterPopoverFooter}>
-                  <button
-                    className={styles.applyBtn}
-                    onClick={() => {
-                      setFilterColumn(tempFilterColumn);
-                      setFilterValue(tempFilterValue);
-                      setShowFilterPopover(false);
-                    }}
-                  >
-                    Apply
-                  </button>
-                  <button
-                    className={styles.clearBtn}
-                    onClick={() => {
-                      setTempFilterValue("");
-                      setFilterValue("");
-                      setShowFilterPopover(false);
-                    }}
-                  >
-                    Clear
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
           <button
             className={`${styles.btn} ${styles.editBtn}`}
             disabled={selectedRow === null}
@@ -321,6 +259,7 @@ const VendorMasterTable: React.FC = () => {
             onClick={handleDownloadPdf}
             aria-label="Export table to PDF"
             type="button"
+            style={{ border: "1px solid #0b63ce" }}
           >
             <span role="img" aria-label="Export PDF" style={{ fontSize: 18 }}>
               🗎
@@ -329,79 +268,167 @@ const VendorMasterTable: React.FC = () => {
           </button>
         </div>
       </div>
-
-      {/* Table */}
-      <div className={styles.tableUser}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th></th>
-              <th>Vendor/OEM Firm Name</th>
-              <th>Description</th>
-              <th>Status</th>
-              <th style={{ textAlign: "center" }}>Activity Log</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData.length === 0 ? (
+      <div className={styles.container}>
+        <div className={styles.controls}>
+          {showFilterPopover && (
+            <div className={styles.filterPopover} ref={popoverRef}>
+              <div className={styles.filterPopoverHeader}>Advanced Filter</div>
+              <div className={styles.filterPopoverBody}>
+                <div className={styles.filterFieldRow}>
+                  <label className={styles.filterLabel}>Column</label>
+                  <select
+                    className={styles.filterDropdown}
+                    value={tempFilterColumn}
+                    onChange={(e) => setTempFilterColumn(e.target.value)}
+                  >
+                    <option value="fullName">Vendor/OEM Firm Name</option>
+                    <option value="comment">Description</option>
+                    <option value="status">Status</option>
+                  </select>
+                </div>
+                <div className={styles.filterFieldRow}>
+                  <label className={styles.filterLabel}>Value</label>
+                  <input
+                    className={styles.filterInput}
+                    type="text"
+                    placeholder={`Enter ${
+                      tempFilterColumn.charAt(0).toUpperCase() +
+                      tempFilterColumn.slice(1)
+                    }`}
+                    value={tempFilterValue}
+                    onChange={(e) => setTempFilterValue(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className={styles.filterPopoverFooter}>
+                <button
+                  className={styles.applyBtn}
+                  onClick={() => {
+                    setFilterColumn(tempFilterColumn);
+                    setFilterValue(tempFilterValue);
+                    setShowFilterPopover(false);
+                  }}
+                >
+                  Apply
+                </button>
+                <button
+                  className={styles.clearBtn}
+                  onClick={() => {
+                    setTempFilterValue("");
+                    setFilterValue("");
+                    setShowFilterPopover(false);
+                  }}
+                >
+                  Clear
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className={styles.tableUser}>
+          <table className={styles.table}>
+            <thead>
               <tr>
-                <td colSpan={5} style={{ textAlign: "center", color: "#888" }}>
-                  No vendors found.
-                </td>
+                <th></th>
+                <th>Vendor/OEM Firm Name</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th style={{ textAlign: "center" }}>Activity Log</th>
               </tr>
-            ) : (
-              filteredData.map((user, idx) => (
-                <tr key={user.id || idx}>
-                  <td>
-                    <input
-                      className={styles.radioInput}
-                      type="radio"
-                      checked={selectedRow === idx}
-                      onChange={() => handleSelectRow(idx)}
-                      aria-label={`Select ${user.fullName}`}
-                    />
-                  </td>
-                  <td>{user.fullName}</td>
-                  <td>{user.comment}</td>
-                  <td>
-                    <span
-                      className={`${styles.status} ${
-                        user.status === "Active"
-                          ? styles.active
-                          : styles.inactive
-                      }`}
-                    >
-                      {user.status}
-                    </span>
-                  </td>
-                  <td style={{ textAlign: "center" }}>
-                    <button
-                      className={styles.actionBtn}
-                      title="View Activity Logs"
-                      onClick={() =>
-                        handleShowActivityLog(
-                          Array.isArray(user.activityLogs)
-                            ? user.activityLogs
-                            : []
-                        )
-                      }
-                    >
-                      <FaRegClock size={17} style={{ color: "#0b63ce" }} />
-                    </button>
+            </thead>
+            <tbody>
+              {filteredData.length === 0 ? (
+                <tr>
+                  <td
+                    colSpan={5}
+                    style={{ textAlign: "center", color: "#888" }}
+                  >
+                    No vendors found.
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+              ) : (
+                filteredData.map((user, idx) => (
+                  <tr
+                    key={user.id || idx}
+                    style={{
+                      background: selectedRow === idx ? "#f0f4ff" : undefined,
+                    }}
+                  >
+                    <td>
+                      <input
+                        className={styles.radioInput}
+                        type="radio"
+                        checked={selectedRow === idx}
+                        onChange={() => handleSelectRow(idx)}
+                        aria-label={`Select ${user.fullName}`}
+                      />
+                    </td>
+                    <td>{user.fullName}</td>
+                    <td>{user.comment}</td>
+                    <td>
+                      <span
+                        className={`${styles.status} ${
+                          user.status === "Active"
+                            ? styles.active
+                            : styles.inactive
+                        }`}
+                      >
+                        {user.status}
+                      </span>
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                      <button
+                        className={styles.actionBtn}
+                        title="View Activity Logs"
+                        onClick={() =>
+                          handleShowActivityLog(
+                            Array.isArray(user.activityLogs)
+                              ? user.activityLogs
+                              : []
+                          )
+                        }
+                      >
+                        <FaRegClock size={17} style={{ color: "#0b63ce" }} />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
-
-      {/* Activity Log Modal */}
       {showActivityLogModal && (
-        <div className={styles.activityOverlay}>
-          <div className={styles.activityModal}>
-            <div className={styles.activityHeader}>
-              <span className={styles.activityTitle}>Activity Log</span>
+        <div
+          className={styles.panelOverlay}
+          style={{ zIndex: 2000, background: "rgba(0,0,0,0.18)" }}
+        >
+          <div
+            className={styles.panelWrapper}
+            style={{
+              maxWidth: 1000,
+              width: "95%",
+              left: "53%",
+              transform: "translateX(-50%)",
+              position: "fixed",
+              top: 176,
+              borderRadius: 16,
+              boxShadow: "0 8px 32px rgba(11,99,206,0.18)",
+              padding: "24px 18px 18px 18px",
+              display: "flex",
+              flexDirection: "column",
+              background: "#fff",
+            }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: 16,
+              }}
+            >
+              <div style={{ fontWeight: 700, fontSize: 20 }}>Activity Log</div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <button
                   className={styles.exportPdfBtn}
@@ -419,7 +446,15 @@ const VendorMasterTable: React.FC = () => {
                   Export PDF
                 </button>
                 <button
-                  className={styles.activityCloseBtn}
+                  style={{
+                    background: "#e3e9f7",
+                    border: "none",
+                    borderRadius: 8,
+                    padding: "6px 14px",
+                    cursor: "pointer",
+                    fontWeight: 600,
+                    fontSize: 18,
+                  }}
                   onClick={() => setShowActivityLogModal(false)}
                   aria-label="Close activity log"
                 >
@@ -433,14 +468,10 @@ const VendorMasterTable: React.FC = () => {
                 maxHeight: 350,
                 minWidth: "100%",
                 borderRadius: 8,
-                boxShadow: "0 0 4px rgba(0, 0, 0, 0.05)",
-                border: "1px solid #e2e8f0",
+                boxShadow: "0 2px 8px rgba(11,99,206,0.08)",
               }}
             >
-              <table
-                className={styles.activityLogTable}
-                style={{ minWidth: 900 }}
-              >
+              <table className={styles.table} style={{ minWidth: 900 }}>
                 <thead>
                   <tr>
                     <th>Action</th>
@@ -486,8 +517,6 @@ const VendorMasterTable: React.FC = () => {
           </div>
         </div>
       )}
-
-      {/* Add/Edit Panel removed: now handled by route navigation */}
     </div>
   );
 };
