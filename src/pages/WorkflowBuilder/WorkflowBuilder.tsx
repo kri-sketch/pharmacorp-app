@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import SettingsIcon from "@mui/icons-material/Settings";
+import ProfileIconWithLogout from "../PlantMasterTable/ProfileIconWithLogout";
 import styles from "./WorkflowBuilder.module.css";
 import Button from "../../components/Common/Button";
 import InputField from "../../components/Common/InputField";
@@ -229,239 +232,249 @@ const WorkflowBuilder: React.FC = () => {
 
   return (
     <div>
-    <header className={styles["main-header"]}>
-              <h2 className={styles["header-title"]}>Approver WorkFlow</h2>
-              
-            </header>
-    <div className={styles.container} aria-label="Workflow Approver Master">
-      
-      <div className={styles.selectionRow}>
-        <div className={styles.selectGroup}>
-          <label className={styles.label} htmlFor="plant-select">
-            Plant
-          </label>
-          <select
-            id="plant-select"
-            className={styles.select}
-            value={plant}
-            onChange={handlePlantChange}
-            disabled={!!corporate}
-          >
-            <option value="">Select Plant</option>
-            {plantOptions.map((p) => (
-              <option key={p} value={p}>
-                {p}
-              </option>
-            ))}
-          </select>
+      <header className={styles["main-header"]}>
+        <h2 className={styles["header-title"]}>Approver WorkFlow</h2>
+        <div
+          style={{ display: "flex", gap: "20px" }}
+          className={styles["header-icons"]}
+        >
+          <span className={styles["header-icon"]}>
+            <NotificationsIcon fontSize="small" />
+          </span>
+          <span className={styles["header-icon"]}>
+            <SettingsIcon fontSize="small" />
+          </span>
+          <ProfileIconWithLogout />
         </div>
-        <div className={styles.selectGroup}>
-          <label className={styles.label} htmlFor="corporate-select">
-            Corporate/Central
-          </label>
-          <select
-            id="corporate-select"
-            className={styles.select}
-            value={corporate}
-            onChange={handleCorporateChange}
-            disabled={!!plant}
-          >
-            <option value="">Select Corporate/Central</option>
-            {corporateOptions.map((c) => (
-              <option key={c.label} value={c.label}>
-                {c.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      {(plant || corporate) && (
-        <div className={styles.approverSection}>
-          <div className={styles.approverHeader}>
-            <h3 className={styles.subTitle}>Approver Rows</h3>
-            <span className={styles.approverCount}>
-              Rows: {approverRows.length}
-            </span>
-            <Button
-              style={{
-                minWidth: 40,
-                background: "#222",
-                color: "#fff",
-                borderRadius: 8,
-                fontSize: 18,
-                padding: "6px 10px",
-              }}
-              onClick={handleAddApproverRow}
-              type="button"
-              disabled={
-                plant
-                  ? approverRows.length >= 5
-                  : corporate
-                  ? approverRows.length >=
-                    (corporateOptions.find((c) => c.label === corporate)
-                      ?.maxApprovers || 5)
-                  : false
-              }
+      </header>
+      <div className={styles.container} aria-label="Workflow Approver Master">
+        <div className={styles.selectionRow}>
+          <div className={styles.selectGroup}>
+            <label className={styles.label} htmlFor="plant-select">
+              Plant
+            </label>
+            <select
+              id="plant-select"
+              className={styles.select}
+              value={plant}
+              onChange={handlePlantChange}
+              disabled={!!corporate}
             >
-              <AddIcon />
-            </Button>
+              <option value="">Select Plant</option>
+              {plantOptions.map((p) => (
+                <option key={p} value={p}>
+                  {p}
+                </option>
+              ))}
+            </select>
           </div>
-          <div className={styles.approverListWrap}>
-            {approverRows.map((row, rowIdx) => (
-              <div key={rowIdx} className={styles.approverCard}>
-                <div className={styles.approverCardHeader}>
-                  <span className={styles.approverCardTitle}>{`Approver ${
-                    rowIdx + 1
-                  }`}</span>
-                  <button
-                    className={styles.addApproverBtn}
-                    onClick={() => handleDeleteApproverRow(rowIdx)}
-                    type="button"
-                  >
-                    Remove Row
-                  </button>
-                </div>
-                <div
-                  className={styles.usersListWrap}
-                  style={{ flexDirection: "row", flexWrap: "wrap", gap: 16 }}
-                >
-                  {row.users.length === 0 && (
-                    <span className={styles.noUsersText}>No users added</span>
-                  )}
-                  {row.users.map((u, userIdx) => (
-                    <div
-                      key={userIdx}
-                      className={styles.userItem}
-                      style={{ minWidth: 220, marginRight: 12 }}
-                    >
-                      <span className={styles.userText}>
-                        {u.name} ({u.empCode}) - {u.email}
-                      </span>
-                      <div className={styles.userActions}>
-                        <button
-                          className={styles.iconBtn}
-                          onClick={() => handleEditUser(rowIdx, userIdx)}
-                          type="button"
-                          title="Edit user"
-                        >
-                          <EditIcon />
-                        </button>
-                        <button
-                          className={styles.iconBtn}
-                          onClick={() => handleDeleteUser(rowIdx, userIdx)}
-                          type="button"
-                          title="Delete user"
-                        >
-                          <DeleteIcon />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                  <div
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      minWidth: 220,
-                    }}
-                  >
+          <div className={styles.selectGroup}>
+            <label className={styles.label} htmlFor="corporate-select">
+              Corporate/Central
+            </label>
+            <select
+              id="corporate-select"
+              className={styles.select}
+              value={corporate}
+              onChange={handleCorporateChange}
+              disabled={!!plant}
+            >
+              <option value="">Select Corporate/Central</option>
+              {corporateOptions.map((c) => (
+                <option key={c.label} value={c.label}>
+                  {c.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {(plant || corporate) && (
+          <div className={styles.approverSection}>
+            <div className={styles.approverHeader}>
+              <h3 className={styles.subTitle}>Approver Rows</h3>
+              <span className={styles.approverCount}>
+                Rows: {approverRows.length}
+              </span>
+              <Button
+                style={{
+                  minWidth: 40,
+                  background: "#222",
+                  color: "#fff",
+                  borderRadius: 8,
+                  fontSize: 18,
+                  padding: "6px 10px",
+                }}
+                onClick={handleAddApproverRow}
+                type="button"
+                disabled={
+                  plant
+                    ? approverRows.length >= 5
+                    : corporate
+                    ? approverRows.length >=
+                      (corporateOptions.find((c) => c.label === corporate)
+                        ?.maxApprovers || 5)
+                    : false
+                }
+              >
+                <AddIcon />
+              </Button>
+            </div>
+            <div className={styles.approverListWrap}>
+              {approverRows.map((row, rowIdx) => (
+                <div key={rowIdx} className={styles.approverCard}>
+                  <div className={styles.approverCardHeader}>
+                    <span className={styles.approverCardTitle}>{`Approver ${
+                      rowIdx + 1
+                    }`}</span>
                     <button
-                      className={`${styles.iconBtn} ${styles.addUser}`}
-                      onClick={() => {
-                        setEditRowIndex(rowIdx);
-                        setEditUserIndex(null);
-                        setForm({ name: "", empCode: "", email: "" });
-                      }}
+                      className={styles.addApproverBtn}
+                      onClick={() => handleDeleteApproverRow(rowIdx)}
                       type="button"
-                      title="Add user"
                     >
-                      <AddIcon />
+                      Remove Row
                     </button>
                   </div>
-                </div>
-                {editRowIndex === rowIdx && (
-                  <div className={styles.inlineFormGrid}>
-                    <InputField
-                      label="Name"
-                      name="name"
-                      value={form.name}
-                      onChange={handleInputChange}
-                      placeholder="Enter name"
-                    />
-                    <InputField
-                      label="Emp Code"
-                      name="empCode"
-                      value={form.empCode}
-                      onChange={handleInputChange}
-                      placeholder="Enter emp code"
-                    />
-                    <InputField
-                      label="Email ID"
-                      name="email"
-                      value={form.email}
-                      onChange={handleInputChange}
-                      placeholder="Enter email"
-                      type="email"
-                    />
-                    <div className={styles.formBtnWrap}>
-                      {editUserIndex === null ? (
-                        <Button
-                          style={{
-                            minWidth: 90,
-                            background: "#2563eb",
-                            color: "#fff",
-                            borderRadius: 8,
-                            boxShadow: "0 2px 8px rgba(37,99,235,0.08)",
-                            fontSize: 15,
-                          }}
-                          onClick={() => handleAddUser(rowIdx)}
-                          type="button"
-                        >
-                          Add
-                        </Button>
-                      ) : (
-                        <Button
-                          style={{
-                            minWidth: 90,
-                            background: "#27ae60",
-                            color: "#fff",
-                            borderRadius: 8,
-                            boxShadow: "0 2px 8px rgba(39,174,96,0.08)",
-                            fontSize: 15,
-                          }}
-                          onClick={handleSaveEdit}
-                          type="button"
-                        >
-                          Save
-                        </Button>
-                      )}
-                      <Button
-                        style={{
-                          minWidth: 70,
-                          background: "#e74c3c",
-                          color: "#fff",
-                          borderRadius: 8,
-                          marginLeft: 8,
-                          fontSize: 15,
-                        }}
+                  <div
+                    className={styles.usersListWrap}
+                    style={{ flexDirection: "row", flexWrap: "wrap", gap: 16 }}
+                  >
+                    {row.users.length === 0 && (
+                      <span className={styles.noUsersText}>No users added</span>
+                    )}
+                    {row.users.map((u, userIdx) => (
+                      <div
+                        key={userIdx}
+                        className={styles.userItem}
+                        style={{ minWidth: 220, marginRight: 12 }}
+                      >
+                        <span className={styles.userText}>
+                          {u.name} ({u.empCode}) - {u.email}
+                        </span>
+                        <div className={styles.userActions}>
+                          <button
+                            className={styles.iconBtn}
+                            onClick={() => handleEditUser(rowIdx, userIdx)}
+                            type="button"
+                            title="Edit user"
+                          >
+                            <EditIcon />
+                          </button>
+                          <button
+                            className={styles.iconBtn}
+                            onClick={() => handleDeleteUser(rowIdx, userIdx)}
+                            type="button"
+                            title="Delete user"
+                          >
+                            <DeleteIcon />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        minWidth: 220,
+                      }}
+                    >
+                      <button
+                        className={`${styles.iconBtn} ${styles.addUser}`}
                         onClick={() => {
-                          setEditRowIndex(null);
+                          setEditRowIndex(rowIdx);
                           setEditUserIndex(null);
                           setForm({ name: "", empCode: "", email: "" });
                         }}
                         type="button"
+                        title="Add user"
                       >
-                        Cancel
-                      </Button>
+                        <AddIcon />
+                      </button>
                     </div>
                   </div>
-                )}
-              </div>
-            ))}
+                  {editRowIndex === rowIdx && (
+                    <div className={styles.inlineFormGrid}>
+                      <InputField
+                        label="Name"
+                        name="name"
+                        value={form.name}
+                        onChange={handleInputChange}
+                        placeholder="Enter name"
+                      />
+                      <InputField
+                        label="Emp Code"
+                        name="empCode"
+                        value={form.empCode}
+                        onChange={handleInputChange}
+                        placeholder="Enter emp code"
+                      />
+                      <InputField
+                        label="Email ID"
+                        name="email"
+                        value={form.email}
+                        onChange={handleInputChange}
+                        placeholder="Enter email"
+                        type="email"
+                      />
+                      <div className={styles.formBtnWrap}>
+                        {editUserIndex === null ? (
+                          <Button
+                            style={{
+                              minWidth: 90,
+                              background: "#2563eb",
+                              color: "#fff",
+                              borderRadius: 8,
+                              boxShadow: "0 2px 8px rgba(37,99,235,0.08)",
+                              fontSize: 15,
+                            }}
+                            onClick={() => handleAddUser(rowIdx)}
+                            type="button"
+                          >
+                            Add
+                          </Button>
+                        ) : (
+                          <Button
+                            style={{
+                              minWidth: 90,
+                              background: "#27ae60",
+                              color: "#fff",
+                              borderRadius: 8,
+                              boxShadow: "0 2px 8px rgba(39,174,96,0.08)",
+                              fontSize: 15,
+                            }}
+                            onClick={handleSaveEdit}
+                            type="button"
+                          >
+                            Save
+                          </Button>
+                        )}
+                        <Button
+                          style={{
+                            minWidth: 70,
+                            background: "#e74c3c",
+                            color: "#fff",
+                            borderRadius: 8,
+                            marginLeft: 8,
+                            fontSize: 15,
+                          }}
+                          onClick={() => {
+                            setEditRowIndex(null);
+                            setEditUserIndex(null);
+                            setForm({ name: "", empCode: "", email: "" });
+                          }}
+                          type="button"
+                        >
+                          Cancel
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
     </div>
   );
 };

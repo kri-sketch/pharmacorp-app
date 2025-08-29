@@ -1,4 +1,5 @@
 import React from "react";
+import ProfileIconWithLogout from "../PlantMasterTable/ProfileIconWithLogout";
 import styles from "./ApplicationMasterTable.module.css";
 import { FaRegClock } from "react-icons/fa6";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -142,6 +143,7 @@ export default function ApplicationMasterTable() {
           <span className={styles["header-icon"]}>
             <SettingsIcon fontSize="small" />
           </span>
+          <ProfileIconWithLogout />
         </div>
       </header>
 

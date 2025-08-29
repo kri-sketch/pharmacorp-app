@@ -1,4 +1,5 @@
 import React from "react";
+import ProfileIconWithLogout from "./ProfileIconWithLogout";
 import { usePlantContext } from "../PlantMaster/PlantContext";
 import styles from "../ApplicationMasterTable/ApplicationMasterTable.module.css";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -9,7 +10,6 @@ import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import { FaRegClock } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
-
 
 // Dummy activity logs for demonstration
 const dummyActivityLogs = [
@@ -100,7 +100,6 @@ const PlantMasterTable: React.FC = () => {
     setSelectedRow(null);
     setShowDeleteModal(false);
   };
-
 
   const navigate = useNavigate();
 
@@ -237,11 +236,18 @@ const PlantMasterTable: React.FC = () => {
           <span className={styles["header-icon"]}>
             <SettingsIcon fontSize="small" />
           </span>
+          {/* Profile icon with dropdown for logout, similar to DashboardView */}
+          <ProfileIconWithLogout />
         </div>
       </header>
       <div className={styles.headerTopRow}>
         <div className={styles.actionHeaderRow}>
-          <button className={styles.addUserBtn} onClick={() => navigate("/plants/add")}>+ Add New</button>
+          <button
+            className={styles.addUserBtn}
+            onClick={() => navigate("/plants/add")}
+          >
+            + Add New
+          </button>
           <button
             className={styles.filterBtn}
             onClick={() => setShowFilterPopover((prev) => !prev)}
@@ -250,10 +256,13 @@ const PlantMasterTable: React.FC = () => {
           >
             🔍 Filter
           </button>
-          <button className={`${styles.btn} ${styles.editBtn}`}  onClick={() => {
-    if (selectedRow !== null) navigate(`/plants/edit/${selectedRow}`);
-  }}
-  disabled={selectedRow === null}>
+          <button
+            className={`${styles.btn} ${styles.editBtn}`}
+            onClick={() => {
+              if (selectedRow !== null) navigate(`/plants/edit/${selectedRow}`);
+            }}
+            disabled={selectedRow === null}
+          >
             <FaEdit size={14} /> Edit
           </button>
           <button
@@ -380,7 +389,13 @@ const PlantMasterTable: React.FC = () => {
                   <td>{plant.description}</td>
                   <td>{plant.location}</td>
                   <td>
-                    <span className={plant.status === "INACTIVE" ? styles.statusInactive : styles.status}>
+                    <span
+                      className={
+                        plant.status === "INACTIVE"
+                          ? styles.statusInactive
+                          : styles.status
+                      }
+                    >
                       {plant.status}
                     </span>
                   </td>

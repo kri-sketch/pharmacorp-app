@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import ProfileIconWithLogout from "../PlantMasterTable/ProfileIconWithLogout";
 import { useNavigate } from "react-router-dom";
 import styles from "./UserMasterTable.module.css";
 import { FaEdit, FaTrash } from "react-icons/fa";
@@ -143,6 +144,7 @@ const UserMasterTable = () => {
             <span className={styles["header-icon"]}>
               <SettingsIcon fontSize="small" />
             </span>
+            <ProfileIconWithLogout />
           </div>
         </header>
 

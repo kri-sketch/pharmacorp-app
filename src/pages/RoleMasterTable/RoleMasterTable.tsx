@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ProfileIconWithLogout from "../PlantMasterTable/ProfileIconWithLogout";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import styles from "./RoleMasterTable.module.css";
@@ -282,6 +283,7 @@ export default function RoleMasterTable() {
           <span className={styles["header-icon"]}>
             <SettingsIcon fontSize="small" />
           </span>
+          <ProfileIconWithLogout />
         </div>
       </header>
 

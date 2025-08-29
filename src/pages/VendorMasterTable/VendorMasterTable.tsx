@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import ProfileIconWithLogout from "../PlantMasterTable/ProfileIconWithLogout";
 import { useNavigate } from "react-router-dom";
 import styles from "./VendorMasterTable.module.css";
 import { VendorContext, VendorUserWithId } from "../../context/VendorContext";
@@ -212,6 +213,7 @@ const VendorMasterTable: React.FC = () => {
           <span className={styles["header-icon"]}>
             <SettingsIcon fontSize="small" />
           </span>
+          <ProfileIconWithLogout />
         </div>
       </header>
 

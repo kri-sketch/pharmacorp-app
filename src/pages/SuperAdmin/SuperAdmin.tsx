@@ -112,7 +112,7 @@ const SuperAdmin: React.FC = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "dashboard":
-        return <DashboardView />;
+        return <DashboardView handleLogout={handleLogout} />;
       case "plant":
         return (
           <div>
@@ -213,7 +213,9 @@ const SuperAdmin: React.FC = () => {
   );
 };
 
-const DashboardView = () => {
+const DashboardView = ({ handleLogout }: { handleLogout: () => void }) => {
+  const [profileOpen, setProfileOpen] = useState(false);
+  const handleProfileClick = () => setProfileOpen((prev) => !prev);
   return (
     <div>
       <header className={styles["main-header"]}>
@@ -224,6 +226,58 @@ const DashboardView = () => {
           </span>
           <span className={styles["header-icon"]}>
             <SettingsIcon fontSize="small" />
+          </span>
+          <span
+            className={styles["header-icon"]}
+            onClick={handleProfileClick}
+            style={{
+              cursor: "pointer",
+              position: "relative",
+              borderRadius: "50%",
+            }}
+          >
+            <PersonIcon fontSize="small" />
+            {profileOpen && (
+              <div
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  top: 30,
+                  border: "1px solid #ccc",
+                  background: "#fff",
+                  borderRadius: 4,
+                  boxShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                  zIndex: 10,
+                  minWidth: 120,
+                }}
+              >
+                <button
+                  style={{
+                    width: "100%",
+                    padding: "8px 12px",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    textAlign: "left",
+                  }}
+                  onClick={() => {
+                    setProfileOpen(false);
+                    handleLogout();
+                  }}
+                >
+                  <LogoutIcon />{" "}
+                  <span
+                    style={{
+                      position: "absolute",
+                      marginTop: "6px",
+                      marginLeft: "6px",
+                    }}
+                  >
+                    Logout
+                  </span>
+                </button>
+              </div>
+            )}
           </span>
         </div>
       </header>
