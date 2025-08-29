@@ -1,4 +1,39 @@
 /* Container and header */
+.tableUser {
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-top: 25px;
+  background: #fff;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #b6c6e3 #f4f7fb; /* Firefox */
+}
+
+/* Chrome, Edge, Safari */
+.tableUser::-webkit-scrollbar {
+  width: 8px;
+  background: #f4f7fb;
+  border-radius: 8px;
+}
+.tableUser::-webkit-scrollbar-thumb {
+  background: #b6c6e3;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+.tableUser::-webkit-scrollbar-thumb:hover {
+  background: #7fa1d6;
+}
+
+.table th {
+  position: sticky;
+  top: 0;
+  background: #eef5fe;
+  z-index: 2;
+  box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.04);
+}
 .main-header {
   display: flex;
   justify-content: space-between;
@@ -100,7 +135,7 @@
 
 .editBtn {
   background-color: #e2e3e5;
-  color: #212529; 
+  color: #212529;
   margin-left: -18px;
 }
 .editBtn:hover,
@@ -174,7 +209,7 @@
   border-collapse: collapse;
   background: #fff;
   border-radius: 8px;
- box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
   border: 1px solid #e2e8f0;
 }
 .activityLogTable th {
@@ -227,16 +262,14 @@
   border-color: #084a9e;
 }
 
-
 .roleTableContainer {
   background: white;
   border-radius: 8px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
   border: 1px solid #e2e8f0;
   margin: 25px;
-margin-top: 50px;
+  margin-top: 50px;
   overflow: hidden;
-  
 }
 
 table {

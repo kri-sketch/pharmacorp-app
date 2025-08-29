@@ -329,7 +329,7 @@ const VendorMasterTable: React.FC = () => {
       </div>
 
       {/* Table */}
-      <div className={styles.roleTableContainer}>
+      <div className={styles.tableUser}>
         <table className={styles.table}>
           <thead>
             <tr>
